@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.MainWindowController">
+   <children>
+      <TableView fx:id="mainTable" layoutX="183.0" layoutY="157.0" prefHeight="443.0" prefWidth="717.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
+        <columns>
+          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="243.0" text="Title" />
+          <TableColumn fx:id="authorColumn" prefWidth="235.0" text="Author" />
+            <TableColumn fx:id="editionColumn" minWidth="0.0" prefWidth="159.0" text="Edition" />
+            <TableColumn fx:id="yearColumn" prefWidth="79.0" text="Year" />
+        </columns>
+      </TableView>
+      <Button fx:id="addButton" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="25.0" prefWidth="95.0" text="Add new" />
+      <TextField fx:id="searchField" layoutX="664.0" layoutY="85.0" />
+      <Button fx:id="searchButton" layoutX="819.0" layoutY="85.0" mnemonicParsing="false" onAction="#searchButtonClick" prefHeight="25.0" prefWidth="67.0" text="Search..." />
+      <Label fx:id="searchErrorLabel" layoutX="664.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
+      <Button fx:id="deleteButton" layoutX="35.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="95.0" text="Delete" />
+      <Text fx:id="test_text" layoutX="293.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="223.13671875" />
+   </children>
+</AnchorPane>
