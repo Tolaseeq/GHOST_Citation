@@ -38,6 +38,7 @@ public class MainWindowController implements Initializable {
     Dao<Author, Integer> authorDao;
     Dao<AuthorRecord, Integer> authorRecordDao;
     ObservableList<Record> records = FXCollections.observableArrayList();
+    ConnectionSource connectionSource;
 
     @FXML
     private ResourceBundle resources;
@@ -74,15 +75,13 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
-        ConnectionSource connectionSource = null;
         try {
-            connectionSource = dbConnect();
+            dbConnect();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        fillTable();
         try {
-            connectionSource.close();
+            fillTable();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +99,7 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    public void searchButtonClick(ActionEvent actionEvent) {
+    public void searchButtonClick(ActionEvent actionEvent) throws IOException { //поиск
         if (searchField.getText().isEmpty()) {
             fillTable();
         }
@@ -146,7 +145,7 @@ public class MainWindowController implements Initializable {
         mainTable.setItems(records);
     }
 
-    protected void fillTable() {
+    protected void fillTable() throws IOException {
         records.clear();
         for (Record record : recordDao) {
             record.setMainTitle(record.getTitles().iterator().next().title);
@@ -162,10 +161,11 @@ public class MainWindowController implements Initializable {
             records.add(record);
         }
         mainTable.setItems(records);
+        connectionSource.close();
     }
 
-    private ConnectionSource dbConnect() throws SQLException {
-        ConnectionSource connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
+    private void dbConnect() throws SQLException {
+        connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
         recordDao = DaoManager.createDao(connectionSource, Record.class);
         titleDao = DaoManager.createDao(connectionSource, Title.class);
         authorDao = DaoManager.createDao(connectionSource, Author.class);
@@ -174,7 +174,6 @@ public class MainWindowController implements Initializable {
         //TableUtils.createTable(connectionSource, Title.class);
         //TableUtils.createTable(connectionSource, Author.class);
         //TableUtils.createTable(connectionSource, AuthorRecord.class);
-        return connectionSource;
     }
 
     private Stage newWindow(String fxml, String windowTitle) throws IOException {
@@ -189,7 +188,7 @@ public class MainWindowController implements Initializable {
         return stage;
     }
 
-    public void deleteButtonClick(ActionEvent actionEvent) throws SQLException {
+    public void deleteButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         for (Record record: recordDao) {
             if (mainTable.getSelectionModel().getSelectedItem().getRecord_id() == record.getRecord_id()) {
                 titleDao.delete(record.getTitles());

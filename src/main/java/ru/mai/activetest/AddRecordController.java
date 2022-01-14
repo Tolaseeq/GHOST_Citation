@@ -35,6 +35,7 @@ public class AddRecordController {
     Dao<Author, Integer> authorDao;
     Dao<AuthorRecord, Integer> authorRecordDao;
     private MainWindowController parentController;
+    ConnectionSource connectionSource;
 
     @FXML
     public Label errorLabel;
@@ -113,7 +114,7 @@ public class AddRecordController {
             errorLabel.setText("INCORRECT DATA!!!");
         }
         else {
-            ConnectionSource connectionSource = dbConnect();
+            dbConnect();
             Record record = new Record();
             //record.title_record = titileBox.getText();
             record.title_add_data = titleDataBox.getText();
@@ -159,8 +160,8 @@ public class AddRecordController {
         }
     }
 
-    private ConnectionSource dbConnect() throws SQLException {
-        ConnectionSource connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
+    private void dbConnect() throws SQLException {
+        connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
         recordDao = DaoManager.createDao(connectionSource, Record.class);
         titleDao = DaoManager.createDao(connectionSource, Title.class);
         authorDao = DaoManager.createDao(connectionSource, Author.class);
@@ -169,7 +170,6 @@ public class AddRecordController {
         //TableUtils.createTable(connectionSource, Title.class);
         //TableUtils.createTable(connectionSource, Author.class);
         //TableUtils.createTable(connectionSource, AuthorRecord.class);
-        return connectionSource;
     }
 
     protected void setParentController(MainWindowController controller)
