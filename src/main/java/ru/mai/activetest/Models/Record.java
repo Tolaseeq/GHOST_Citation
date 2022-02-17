@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 @DatabaseTable(tableName = "records")
 public class Record {
+    @DatabaseField (foreign = true, foreignAutoRefresh = true, columnName = "publication_id")
+    public PublicationType publicationType;
     @DatabaseField (generatedId = true, canBeNull = false, unique = true)
     public Integer record_id;
     @ForeignCollectionField(eager = false)

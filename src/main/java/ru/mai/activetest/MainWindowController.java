@@ -24,10 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import ru.mai.activetest.Models.Author;
-import ru.mai.activetest.Models.AuthorRecord;
-import ru.mai.activetest.Models.Record;
-import ru.mai.activetest.Models.Title;
+import ru.mai.activetest.Models.*;
 
 public class MainWindowController implements Initializable {
 
@@ -37,6 +34,7 @@ public class MainWindowController implements Initializable {
     Dao<Title, Integer> titleDao;
     Dao<Author, Integer> authorDao;
     Dao<AuthorRecord, Integer> authorRecordDao;
+    Dao<PublicationType, Integer> publicationTypeDao;
     ObservableList<Record> records = FXCollections.observableArrayList();
     ConnectionSource connectionSource;
 
@@ -170,10 +168,12 @@ public class MainWindowController implements Initializable {
         titleDao = DaoManager.createDao(connectionSource, Title.class);
         authorDao = DaoManager.createDao(connectionSource, Author.class);
         authorRecordDao = DaoManager.createDao(connectionSource, AuthorRecord.class);
+        publicationTypeDao = DaoManager.createDao(connectionSource, PublicationType.class);
         //TableUtils.createTable(connectionSource, Record.class);
         //TableUtils.createTable(connectionSource, Title.class);
         //TableUtils.createTable(connectionSource, Author.class);
         //TableUtils.createTable(connectionSource, AuthorRecord.class);
+        //TableUtils.createTable(connectionSource, PublicationType.class);
     }
 
     private Stage newWindow(String fxml, String windowTitle) throws IOException {
@@ -193,7 +193,9 @@ public class MainWindowController implements Initializable {
             if (mainTable.getSelectionModel().getSelectedItem().getRecord_id() == record.getRecord_id()) {
                 titleDao.delete(record.getTitles());
                 for (AuthorRecord authorRecord : record.authorRecords) {
-                    authorDao.delete(authorRecord.author);
+                    if (authorRecordDao.queryForEq("author_id", authorRecord.author).size() == 1) {
+                        authorDao.delete(authorRecord.author);
+                    }
                 }
                 authorRecordDao.delete(record.getAuthorRecords());
                 recordDao.delete(record);

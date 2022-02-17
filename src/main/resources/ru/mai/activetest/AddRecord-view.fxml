@@ -1,65 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
     <children>
         <Label layoutX="87.0" layoutY="33.0" text="Insert new resourse data:" />
-      <AnchorPane fx:id="titleAuthorPane" layoutX="306.0" layoutY="60.0" prefHeight="541.0" prefWidth="595.0">
+      <AnchorPane fx:id="titleAuthorPane" layoutX="306.0" layoutY="1.0" prefHeight="600.0" prefWidth="595.0">
          <children>
-            <TextField fx:id="titleDataBox" layoutX="11.0" layoutY="233.0" prefHeight="25.0" prefWidth="414.0" />
-            <Button fx:id="nextButton" layoutX="432.0" layoutY="233.0" mnemonicParsing="false" onAction="#nextButtonClick" text="Next..." />
-            <TextArea fx:id="titleField" layoutX="14.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="337.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="39.0" />
-            <TextArea fx:id="authorField" layoutX="14.0" layoutY="295.0" prefHeight="165.0" prefWidth="414.0" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="167.0" AnchorPane.topAnchor="295.0" />
-            <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="276.0" text="Названия, каждое - с новой строки" textFill="WHITE" />
-            <Label layoutX="11.0" layoutY="272.0" prefHeight="25.0" prefWidth="246.0" text="Авторы, каждый - с новой строки" textFill="WHITE" />
-            <Label layoutX="11.0" layoutY="214.0" prefHeight="25.0" prefWidth="133.0" text="Доп. данные названия" textFill="WHITE" />
+            <Button fx:id="submitButton" layoutX="494.0" layoutY="233.0" mnemonicParsing="false" onAction="#submitButtonClick" prefWidth="95.0" text="Submit" />
+            <Label fx:id="authorLabel" layoutX="11.0" layoutY="59.0" prefHeight="25.0" prefWidth="133.0" text="Автор" textFill="WHITE" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="60.0" />
+            <Label fx:id="titleLabel" layoutX="11.0" layoutY="228.0" prefHeight="25.0" prefWidth="99.0" text="Название" textFill="WHITE" AnchorPane.bottomAnchor="355.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="220.0" />
+            <ComboBox fx:id="resourceTypeField" layoutX="134.0" layoutY="20.0" onAction="#typeChange" prefWidth="150.0" AnchorPane.bottomAnchor="555.0" AnchorPane.topAnchor="20.0" />
+            <Label layoutX="11.0" layoutY="20.0" prefHeight="25.0" prefWidth="119.0" text="Тип публикации" textFill="WHITE" AnchorPane.bottomAnchor="555.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="20.0" />
+            <ComboBox fx:id="authorField1" layoutX="134.0" layoutY="60.0" prefWidth="150.0" AnchorPane.bottomAnchor="515.0" AnchorPane.topAnchor="60.0" />
+            <ComboBox fx:id="authorField2" layoutX="134.0" layoutY="99.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="100.0" />
+            <ComboBox fx:id="authorField3" layoutX="144.0" layoutY="109.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="435.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="140.0" />
+            <ComboBox fx:id="authorField4" layoutX="154.0" layoutY="119.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="395.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="180.0" />
+            <Button fx:id="addAuthorButton" layoutX="307.0" layoutY="60.0" mnemonicParsing="false" onAction="#addAuthorButtonClick" prefHeight="25.0" prefWidth="26.0" text="+" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="259.0" AnchorPane.topAnchor="60.0" />
+            <Button fx:id="addTitleButton" layoutX="310.0" layoutY="220.0" mnemonicParsing="false" onAction="#addTitleButtonClick" prefHeight="25.0" prefWidth="26.0" text="+" AnchorPane.bottomAnchor="355.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="259.0" AnchorPane.topAnchor="220.0" />
+            <TextField fx:id="titleField1" layoutX="164.0" layoutY="129.0" prefWidth="150.0" AnchorPane.bottomAnchor="355.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="220.0" />
+            <TextField fx:id="titleField2" layoutX="134.0" layoutY="259.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="260.0" />
+            <Label fx:id="publisherLabel" layoutX="21.0" layoutY="238.0" prefHeight="25.0" prefWidth="99.0" text="Издательство" textFill="WHITE" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="300.0" />
+            <Label fx:id="editionLabel" layoutX="11.0" layoutY="330.0" prefHeight="25.0" prefWidth="99.0" text="Издание" textFill="WHITE" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="340.0" />
+            <Label fx:id="yearLabel" layoutX="21.0" layoutY="340.0" prefHeight="25.0" prefWidth="99.0" text="Год" textFill="WHITE" AnchorPane.bottomAnchor="195.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="380.0" />
+            <Label fx:id="pagesLabel" layoutX="31.0" layoutY="350.0" prefHeight="25.0" prefWidth="99.0" text="Стр." textFill="WHITE" AnchorPane.bottomAnchor="155.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="420.0" />
+            <ComboBox fx:id="publisherField" layoutX="134.0" layoutY="303.0" prefWidth="150.0" AnchorPane.bottomAnchor="275.0" AnchorPane.topAnchor="300.0" />
+            <ComboBox fx:id="yearField" layoutX="134.0" layoutY="383.0" prefWidth="150.0" AnchorPane.bottomAnchor="195.0" AnchorPane.topAnchor="380.0" />
+            <TextField fx:id="numberField" layoutX="135.0" layoutY="343.0" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="340.0" />
+            <TextField fx:id="pagesField" layoutX="135.0" layoutY="423.0" AnchorPane.bottomAnchor="155.0" AnchorPane.topAnchor="420.0" />
+            <TextField fx:id="urlField" layoutX="135.0" layoutY="458.0" visible="false" AnchorPane.bottomAnchor="115.0" AnchorPane.topAnchor="460.0" />
+            <TextField fx:id="urlDateField" layoutX="135.0" layoutY="500.0" visible="false" AnchorPane.bottomAnchor="75.0" AnchorPane.topAnchor="500.0" />
+            <Label fx:id="urlLabel" layoutX="21.0" layoutY="460.0" prefHeight="25.0" prefWidth="99.0" text="URL" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="460.0" />
+            <Label fx:id="urlDateLabel" layoutX="31.0" layoutY="470.0" prefHeight="25.0" prefWidth="99.0" text="Дата обращения" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="500.0" />
+            <CheckBox fx:id="isElectronicCheck" layoutX="336.0" layoutY="24.0" mnemonicParsing="false" onAction="#electronicCheck" text="Электронный ресурс" />
+            <ComboBox fx:id="serialTitleField" layoutX="144.0" layoutY="269.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="260.0" />
+            <Label fx:id="serialTitleLabel" layoutX="21.0" layoutY="238.0" prefHeight="25.0" prefWidth="99.0" text="Название журнала" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="260.0" />
+            <TextField fx:id="cityField" layoutX="145.0" layoutY="510.0" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="336.0" AnchorPane.topAnchor="540.0" />
+            <Label fx:id="cityLabel" layoutX="41.0" layoutY="480.0" prefHeight="25.0" prefWidth="99.0" text="Город" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="540.0" />
+            <TextField fx:id="addDataField" layoutX="144.0" layoutY="109.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="addDataLabel" layoutX="21.0" layoutY="69.0" prefHeight="25.0" prefWidth="133.0" text="Доп. сведения" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
-        <AnchorPane fx:id="dataPane" layoutX="296.0" layoutY="50.0" prefHeight="541.0" prefWidth="595.0" visible="false">
-            <children>
-                <TextField fx:id="editionBox" layoutX="176.0" layoutY="39.0" />
-                <TextField fx:id="editionDataBox" layoutX="177.0" layoutY="91.0" />
-                <TextField fx:id="placeBox" layoutX="176.0" layoutY="141.0" />
-                <TextField fx:id="publisherBox" layoutX="175.0" layoutY="190.0" />
-                <TextField fx:id="dateBox" layoutX="178.0" layoutY="240.0" />
-                <TextField fx:id="sizeBox" layoutX="177.0" layoutY="290.0" />
-                <TextField fx:id="urlBox" layoutX="176.0" layoutY="340.0" />
-                <TextField fx:id="touchDateBox" layoutX="176.0" layoutY="390.0" />
-                <TextField fx:id="noteBox" layoutX="176.0" layoutY="440.0" />
-                <TextField fx:id="identificatorBox" layoutX="346.0" layoutY="39.0" />
-                <TextField fx:id="keyTitleBox" layoutX="346.0" layoutY="91.0" />
-                <TextField fx:id="contentTypeBox" layoutX="346.0" layoutY="141.0" />
-                <TextField fx:id="meanBox" layoutX="346.0" layoutY="190.0" />
-                <TextField fx:id="pagesBox" layoutX="347.0" layoutY="240.0" />
-                <TextField fx:id="serialMarkBox" layoutX="346.0" layoutY="290.0" />
-            <Label layoutX="175.0" layoutY="166.0" prefHeight="25.0" prefWidth="133.0" text="Издательство" textFill="WHITE" />
-            <Label layoutX="177.0" layoutY="215.0" prefHeight="25.0" prefWidth="133.0" text="Дата публикации" textFill="WHITE" />
-            <Label layoutX="176.0" layoutY="265.0" prefHeight="25.0" prefWidth="133.0" text="Размер (страницы)" textFill="WHITE" />
-            <Label layoutX="175.0" layoutY="315.0" prefHeight="25.0" prefWidth="133.0" text="URL" textFill="WHITE" />
-            <Label layoutX="175.0" layoutY="365.0" prefHeight="25.0" prefWidth="133.0" text="Дата обращения" textFill="WHITE" />
-            <Label layoutX="174.0" layoutY="415.0" prefHeight="25.0" prefWidth="133.0" text="Примечание" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="64.0" prefHeight="25.0" prefWidth="133.0" text="Ключевое название" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="116.0" prefHeight="25.0" prefWidth="133.0" text="Вид содержания" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="166.0" prefHeight="25.0" prefWidth="133.0" text="Средство доступа" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="215.0" prefHeight="25.0" prefWidth="133.0" text="Нужные страницы" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="265.0" prefHeight="25.0" prefWidth="133.0" text="Пометка сериального" textFill="WHITE" />
-            <Label layoutX="346.0" layoutY="14.0" prefHeight="25.0" prefWidth="133.0" text="Идентификатор" textFill="WHITE" />
-            <Button fx:id="submitButton" layoutX="527.0" layoutY="233.0" mnemonicParsing="false" onAction="#submitButtonClick" text="Submit" />
-            <Label layoutX="175.0" layoutY="14.0" prefHeight="25.0" prefWidth="133.0" text="Издание" textFill="WHITE" />
-            <Label layoutX="175.0" layoutY="64.0" prefHeight="25.0" prefWidth="133.0" text="Доп. данные издания" textFill="WHITE" />
-            <Label layoutX="175.0" layoutY="116.0" prefHeight="25.0" prefWidth="133.0" text="Место публикации" textFill="WHITE" />
-            </children>
-        </AnchorPane>
-      <Label fx:id="errorLabel" layoutX="87.0" layoutY="105.0" prefHeight="423.0" prefWidth="310.0">
-         <font>
-            <Font size="96.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>
