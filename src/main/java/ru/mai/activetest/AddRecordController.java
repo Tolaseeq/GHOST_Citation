@@ -181,33 +181,31 @@ public class AddRecordController {
         record.url_date = urlDateField.getText();
         record.serial_note = serialTitleField.getValue();
         recordDao.create(record);
-
-        Author author = createAuthor(authorField1.getValue());
-        AuthorRecord authorRecord = new AuthorRecord();
-        authorRecord.record = record;
-        authorRecord.author = author;
-        authorRecordDao.create(authorRecord);
-
-        if (authorField2.isVisible() && !authorField2.getValue().isEmpty())
-        {
-            author = createAuthor(authorField2.getValue());
+        if (authorField1.isVisible() && !authorField1.getValue().isEmpty()) {
+            Author author = createAuthor(authorField1.getValue());
+            AuthorRecord authorRecord = new AuthorRecord();
             authorRecord.record = record;
             authorRecord.author = author;
             authorRecordDao.create(authorRecord);
 
-            if (authorField3.isVisible() && !authorField3.getValue().isEmpty())
-            {
-                author = createAuthor(authorField3.getValue());
+            if (authorField2.isVisible() && !authorField2.getValue().isEmpty()) {
+                author = createAuthor(authorField2.getValue());
                 authorRecord.record = record;
                 authorRecord.author = author;
                 authorRecordDao.create(authorRecord);
 
-                if (authorField4.isVisible() && !authorField4.getValue().isEmpty())
-                {
-                    author = createAuthor(authorField4.getValue());
+                if (authorField3.isVisible() && !authorField3.getValue().isEmpty()) {
+                    author = createAuthor(authorField3.getValue());
                     authorRecord.record = record;
                     authorRecord.author = author;
                     authorRecordDao.create(authorRecord);
+
+                    if (authorField4.isVisible() && !authorField4.getValue().isEmpty()) {
+                        author = createAuthor(authorField4.getValue());
+                        authorRecord.record = record;
+                        authorRecord.author = author;
+                        authorRecordDao.create(authorRecord);
+                    }
                 }
             }
         }
@@ -243,6 +241,10 @@ public class AddRecordController {
 
     Author createAuthor(String authorString) throws SQLException {
         Author _author = new Author();
+        if (authorString == null)
+        {
+            return _author;
+        }
         if (!authorDao.queryForEq("author", authorString).isEmpty())
         {
             _author = authorDao.queryForEq("author", authorString).get(0);
@@ -314,6 +316,16 @@ public class AddRecordController {
 
     public void typeChange(ActionEvent actionEvent)
     {
+        for (Object field : titleAuthorPane.getChildren().toArray()) {
+            if (field.getClass() == ComboBox.class && field != resourceTypeField)
+            {
+                ((ComboBox) field).setValue(null);
+            }
+            if (field.getClass() == TextField.class)
+            {
+                ((TextField) field).setText(null);
+            }
+        }
         switch (resourceTypeField.getValue()) {
             case  ("Книга"):
                 addAuthorButton.setVisible(true);

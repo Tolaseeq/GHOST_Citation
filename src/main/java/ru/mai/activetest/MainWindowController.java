@@ -150,7 +150,7 @@ public class MainWindowController implements Initializable {
             Boolean firstRun = true;
             for (AuthorRecord authorRecord : record.getAuthorRecords()) {
                 if (firstRun) {
-                    record.setAuthorsString(record.getAuthorRecords().iterator().next().author.author);
+                    record.setAuthorsString(authorRecord.author.author);
                     firstRun = false;
                 } else {
                     record.setAuthorsString(record.getAuthorsString() + "; " + authorRecord.author.author);
@@ -189,7 +189,7 @@ public class MainWindowController implements Initializable {
     }
 
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
-        for (Record record: recordDao) {
+        for (Record record : recordDao) {
             if (mainTable.getSelectionModel().getSelectedItem().getRecord_id() == record.getRecord_id()) {
                 titleDao.delete(record.getTitles());
                 for (AuthorRecord authorRecord : record.authorRecords) {

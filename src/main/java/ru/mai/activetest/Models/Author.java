@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @DatabaseTable(tableName = "authors")
 public class Author {
-    @DatabaseField (generatedId = true, canBeNull = false, unique = true)
+    @DatabaseField (generatedId = true, canBeNull = true, unique = true)
     public Integer author_id;
     @DatabaseField
     public String author;
