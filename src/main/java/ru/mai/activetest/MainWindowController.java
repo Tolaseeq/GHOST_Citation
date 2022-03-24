@@ -3,6 +3,7 @@ package ru.mai.activetest;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.j256.ormlite.dao.Dao;
@@ -21,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -87,6 +89,22 @@ public class MainWindowController implements Initializable {
         authorColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("authorsString"));
         editionColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("edition"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("publication_date"));
+    }
+
+    @FXML
+    public void clickItem(MouseEvent mouseEvent) throws IOException {
+        mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //System.out.println("Clicked on " + (mainTable.getSelectionModel().getSelectedCells().get(0)).getRow());
+                //System.out.println("Clicked on " + (mainTable.getSelectionModel().getSelectedItem().record_id));
+                try {
+                    Stage stage = newWindow("SingleExport-view.fxml", "Export");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
@@ -183,8 +201,14 @@ public class MainWindowController implements Initializable {
         stage.setTitle(windowTitle);
         stage.setScene(new Scene(root1));
         stage.show();
-        AddRecordController addRecordController = loader.getController();
-        addRecordController.setParentController(this);
+        if (Objects.equals(windowTitle, "Add a new record")) {
+            AddRecordController addRecordController = loader.getController();
+            addRecordController.setParentController(this);
+        }
+        else {
+            SingleExportController singleExportController = loader.getController();
+            singleExportController.setRecordIndex(mainTable.getSelectionModel().getSelectedItem());
+        }
         return stage;
     }
 

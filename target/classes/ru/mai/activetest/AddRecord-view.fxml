@@ -40,10 +40,10 @@
             <CheckBox fx:id="isElectronicCheck" layoutX="336.0" layoutY="24.0" mnemonicParsing="false" onAction="#electronicCheck" text="Электронный ресурс" />
             <ComboBox fx:id="serialTitleField" layoutX="144.0" layoutY="269.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="311.0" AnchorPane.topAnchor="260.0" />
             <Label fx:id="serialTitleLabel" layoutX="21.0" layoutY="238.0" prefHeight="25.0" prefWidth="99.0" text="Название журнала" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="315.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="260.0" />
-            <TextField fx:id="cityField" layoutX="145.0" layoutY="510.0" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="336.0" AnchorPane.topAnchor="540.0" />
-            <Label fx:id="cityLabel" layoutX="41.0" layoutY="480.0" prefHeight="25.0" prefWidth="99.0" text="Город" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="540.0" />
-            <TextField fx:id="addDataField" layoutX="144.0" layoutY="109.0" prefWidth="150.0" visible="false" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="100.0" />
-            <Label fx:id="addDataLabel" layoutX="21.0" layoutY="69.0" prefHeight="25.0" prefWidth="133.0" text="Доп. сведения" textFill="WHITE" visible="false" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="100.0" />
+            <TextField fx:id="cityField" layoutX="145.0" layoutY="510.0" visible="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="336.0" AnchorPane.topAnchor="540.0" />
+            <Label fx:id="cityLabel" layoutX="41.0" layoutY="480.0" prefHeight="25.0" prefWidth="99.0" text="Город" textFill="WHITE" visible="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="540.0" />
+            <TextField fx:id="addDataField" layoutX="144.0" layoutY="109.0" prefWidth="150.0" visible="true" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="339.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="addDataLabel" layoutX="21.0" layoutY="69.0" prefHeight="25.0" prefWidth="133.0" text="Доп. сведения" textFill="WHITE" visible="true" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
     </children>

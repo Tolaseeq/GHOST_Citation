@@ -174,7 +174,10 @@ public class AddRecordController {
         record.title_add_data = addDataField.getText();
         record.edition = numberField.getText();
         record.publication_place = cityField.getText();
-        record.publisher_name = publisherField.getValue();
+        if (publisherField.getValue() == null)
+            record.publisher_name = "[б. и.]";
+        else
+            record.publisher_name = publisherField.getValue();
         record.publication_date = yearField.getValue();
         record.size = pagesField.getText();
         record.url = urlField.getText();
@@ -356,10 +359,10 @@ public class AddRecordController {
                 urlLabel.setVisible(false);
                 yearField.setVisible(true);
                 yearLabel.setVisible(true);
-                cityLabel.setVisible(false);
-                cityField.setVisible(false);
-                addDataField.setVisible(false);
-                addDataLabel.setVisible(false);
+                cityLabel.setVisible(true);
+                cityField.setVisible(true);
+                addDataField.setVisible(true);
+                addDataLabel.setVisible(true);
                 if (isElectronicCheck.isSelected())
                 {
                     isElectronicCheck.setSelected(false);

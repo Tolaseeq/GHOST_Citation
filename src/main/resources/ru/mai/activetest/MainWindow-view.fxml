@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.MainWindowController">
    <children>
-      <TableView fx:id="mainTable" layoutX="183.0" layoutY="157.0" prefHeight="443.0" prefWidth="717.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
+      <TableView fx:id="mainTable" layoutX="183.0" layoutY="157.0" onMouseClicked="#clickItem" prefHeight="443.0" prefWidth="717.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
         <columns>
           <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="243.0" text="Title" />
           <TableColumn fx:id="authorColumn" prefWidth="235.0" text="Author" />
