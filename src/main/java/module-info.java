@@ -10,7 +10,6 @@ module ru.mai.activetest {
     requires org.kordamp.bootstrapfx.core;
     //requires eu.hansolo.tilesfx;
     requires java.sql;
-    requires activejdbc;
     requires ormlite.core;
     requires ormlite.jdbc;
     requires lombok;
