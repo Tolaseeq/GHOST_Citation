@@ -15,6 +15,7 @@ import ru.mai.activetest.Models.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class AddRecordController {
 
@@ -29,6 +30,21 @@ public class AddRecordController {
 
     @FXML
     private Label serialTitleLabel;
+
+    @FXML
+    private TextField dissSpecField;
+
+    @FXML
+    private CheckBox fromSiteCheck;
+
+    @FXML
+    private TextField contentPagesField;
+
+    @FXML
+    private Label contentPagesLabel;
+
+    @FXML
+    private TextField numberFieldJournal;
 
     @FXML
     private TextField addDataField;
@@ -173,6 +189,11 @@ public class AddRecordController {
         record.publicationType = publicationTypeDao.queryForId(publicationTypeIndex);
         record.title_add_data = addDataField.getText();
         record.edition = numberField.getText();
+        if (Objects.equals(publisherField.getValue(), "Статья"))
+            record.edition_add_data = numberFieldJournal.getText();
+        else
+            record.edition_add_data = dissSpecField.getText();
+        record.content_page = contentPagesField.getText();
         record.publication_place = cityField.getText();
         if (publisherField.getValue() == null)
             record.publisher_name = "[б. и.]";
@@ -183,6 +204,10 @@ public class AddRecordController {
         record.url = urlField.getText();
         record.url_date = urlDateField.getText();
         record.serial_note = serialTitleField.getValue();
+        if (isElectronicCheck.isSelected())
+            record.content_type = "электронный";
+        else
+            record.content_type = "непосредственный";
         recordDao.create(record);
         if (authorField1.isVisible() && !authorField1.getValue().isEmpty()) {
             Author author = createAuthor(authorField1.getValue());
@@ -331,6 +356,7 @@ public class AddRecordController {
         }
         switch (resourceTypeField.getValue()) {
             case  ("Книга"):
+                fromSiteCheck.setVisible (false);
                 addAuthorButton.setVisible(true);
                 addTitleButton.setVisible(true);
                 authorField1.setVisible(true);
@@ -343,6 +369,7 @@ public class AddRecordController {
                 isElectronicCheck.setVisible(true);
                 submitButton.setVisible(true);
                 numberField.setVisible(true);
+                numberFieldJournal.setVisible(false);
                 pagesField.setVisible(true);
                 pagesLabel.setVisible(true);
                 publisherField.setVisible(true);
@@ -361,8 +388,12 @@ public class AddRecordController {
                 yearLabel.setVisible(true);
                 cityLabel.setVisible(true);
                 cityField.setVisible(true);
+                addDataLabel.setText("Доп. сведения");
                 addDataField.setVisible(true);
                 addDataLabel.setVisible(true);
+                contentPagesField.setVisible(false);
+                contentPagesLabel.setVisible(false);
+                dissSpecField.setVisible(false);
                 if (isElectronicCheck.isSelected())
                 {
                     isElectronicCheck.setSelected(false);
@@ -371,6 +402,7 @@ public class AddRecordController {
                 break;
 
             case ("Статья"):
+                fromSiteCheck.setVisible (true);
                 addAuthorButton.setVisible(true);
                 addTitleButton.setVisible(true);
                 authorField1.setVisible(true);
@@ -382,7 +414,8 @@ public class AddRecordController {
                 editionLabel.setVisible(true);
                 isElectronicCheck.setVisible(true);
                 submitButton.setVisible(true);
-                numberField.setVisible(true);
+                numberField.setVisible(false);
+                numberFieldJournal.setVisible(true);
                 pagesField.setVisible(true);
                 pagesLabel.setVisible(true);
                 publisherField.setVisible(false);
@@ -398,10 +431,14 @@ public class AddRecordController {
                 urlLabel.setVisible(false);
                 yearField.setVisible(true);
                 yearLabel.setVisible(true);
-                cityLabel.setVisible(false);
-                cityField.setVisible(false);
-                addDataField.setVisible(false);
-                addDataLabel.setVisible(false);
+                cityLabel.setVisible(true);
+                cityField.setVisible(true);
+                addDataLabel.setText("Доп. сведения");
+                addDataField.setVisible(true);
+                addDataLabel.setVisible(true);
+                contentPagesField.setVisible(false);
+                contentPagesLabel.setVisible(false);
+                dissSpecField.setVisible(false);
                 if (isElectronicCheck.isSelected())
                 {
                     isElectronicCheck.setSelected(false);
@@ -412,6 +449,7 @@ public class AddRecordController {
             case ("URL"):
                 isElectronicCheck.setSelected(true);
                 isElectronicCheck.setVisible(false);
+                fromSiteCheck.setVisible (false);
                 addAuthorButton.setVisible(false);
                 addTitleButton.setVisible(false);
                 authorField1.setVisible(false);
@@ -422,6 +460,7 @@ public class AddRecordController {
                 editionLabel.setVisible(false);
                 submitButton.setVisible(true);
                 numberField.setVisible(false);
+                numberFieldJournal.setVisible(false);
                 pagesField.setVisible(false);
                 pagesLabel.setVisible(false);
                 publisherField.setVisible(false);
@@ -441,12 +480,16 @@ public class AddRecordController {
                 cityField.setVisible(false);
                 addDataField.setVisible(false);
                 addDataLabel.setVisible(false);
+                contentPagesField.setVisible(false);
+                contentPagesLabel.setVisible(false);
+                dissSpecField.setVisible(false);
                 publicationTypeIndex = 3;
                 break;
 
             case ("Автореферат/диссертация"):
                 isElectronicCheck.setSelected(false);
                 isElectronicCheck.setVisible(false);
+                fromSiteCheck.setVisible (false);
                 addAuthorButton.setVisible(false);
                 addTitleButton.setVisible(false);
                 authorField1.setVisible(true);
@@ -454,14 +497,16 @@ public class AddRecordController {
                 authorField3.setVisible(false);
                 authorField4.setVisible(false);
                 authorLabel.setVisible(true);
-                editionLabel.setVisible(false);
+                editionLabel.setVisible(true);
+                editionLabel.setText("Специальность");
                 submitButton.setVisible(true);
-                numberField.setVisible(false);
+                numberField.setVisible(true);
+                numberFieldJournal.setVisible(false);
                 pagesField.setVisible(true);
                 pagesLabel.setVisible(true);
                 publisherField.setVisible(true);
                 publisherLabel.setVisible(true);
-                publisherLabel.setText("Учреждение");
+                publisherLabel.setText("ВУЗ");
                 serialTitleField.setVisible(false);
                 serialTitleLabel.setVisible(false);
                 titleField1.setVisible(true);
@@ -475,8 +520,12 @@ public class AddRecordController {
                 yearLabel.setVisible(true);
                 cityLabel.setVisible(true);
                 cityField.setVisible(true);
+                addDataLabel.setText("На соискание");
                 addDataField.setVisible(true);
                 addDataLabel.setVisible(true);
+                contentPagesField.setVisible(true);
+                contentPagesLabel.setVisible(true);
+                dissSpecField.setVisible(true);
                 publicationTypeIndex = 4;
                 break;
         }
