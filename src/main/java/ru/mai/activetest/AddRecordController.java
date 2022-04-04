@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ru.mai.activetest.Models.*;
 
@@ -122,7 +123,7 @@ public class AddRecordController {
     private ComboBox<String> serialTitleField;
 
     @FXML
-    private AnchorPane titleAuthorPane;
+    private VBox titleAuthorPane;
 
     @FXML
     private TextField titleField1;
@@ -348,10 +349,16 @@ public class AddRecordController {
             if (field.getClass() == ComboBox.class && field != resourceTypeField)
             {
                 ((ComboBox) field).setValue(null);
+                ((ComboBox) field).managedProperty().bind(((ComboBox) field).visibleProperty());
             }
             if (field.getClass() == TextField.class)
             {
                 ((TextField) field).setText(null);
+                ((TextField) field).managedProperty().bind(((TextField) field).visibleProperty());
+            }
+            if (field.getClass() == Label.class)
+            {
+                ((Label) field).managedProperty().bind(((Label) field).visibleProperty());
             }
         }
         switch (resourceTypeField.getValue()) {

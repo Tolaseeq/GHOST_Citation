@@ -1,50 +1,221 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
-    <children>
-        <Button fx:id="submitButton" layoutX="494.0" layoutY="233.0" mnemonicParsing="false" onAction="#submitButtonClick" prefWidth="95.0" text="Submit" />
-        <Label fx:id="authorLabel" layoutX="11.0" layoutY="59.0" prefHeight="25.0" prefWidth="123.0" text="Автор" textFill="WHITE" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="60.0" />
-        <Label fx:id="titleLabel" layoutX="11.0" layoutY="100.0" prefHeight="25.0" prefWidth="123.0" text="Название" textFill="WHITE" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="100.0" />
-        <ComboBox fx:id="resourceTypeField" layoutX="134.0" layoutY="20.0" onAction="#typeChange" prefWidth="150.0" />
-        <Label layoutX="11.0" layoutY="20.0" prefHeight="25.0" prefWidth="123.0" text="Тип публикации" textFill="WHITE" AnchorPane.bottomAnchor="555.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="20.0" />
-        <ComboBox fx:id="authorField1" layoutX="135.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" />
-        <ComboBox fx:id="authorField2" layoutX="300.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="60.0" />
-        <ComboBox fx:id="authorField3" layoutX="467.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="467.0" AnchorPane.rightAnchor="283.0" AnchorPane.topAnchor="60.0" />
-        <ComboBox fx:id="authorField4" layoutX="631.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="631.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="60.0" />
-        <Button fx:id="addAuthorButton" layoutX="99.0" layoutY="60.0" mnemonicParsing="false" onAction="#addAuthorButtonClick" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.bottomAnchor="515.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="776.0" AnchorPane.topAnchor="60.0" />
-        <Button fx:id="addTitleButton" layoutX="99.0" layoutY="100.0" mnemonicParsing="false" onAction="#addTitleButtonClick" prefHeight="25.0" prefWidth="25.0" text="+" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="776.0" AnchorPane.topAnchor="100.0" />
-        <TextField fx:id="titleField1" layoutX="134.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="100.0" />
-        <TextField fx:id="titleField2" layoutX="300.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="475.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="100.0" />
-        <Label fx:id="publisherLabel" layoutX="11.0" layoutY="221.0" prefHeight="25.0" prefWidth="123.0" text="Издательство" textFill="WHITE" AnchorPane.bottomAnchor="354.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="221.0" />
-        <Label fx:id="editionLabel" layoutX="11.0" layoutY="258.0" prefHeight="25.0" prefWidth="123.0" text="Издание" textFill="WHITE" AnchorPane.bottomAnchor="317.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="258.0" />
-        <Label fx:id="yearLabel" layoutX="11.0" layoutY="294.0" prefHeight="25.0" prefWidth="123.0" text="Год" textFill="WHITE" AnchorPane.bottomAnchor="281.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="294.0" />
-        <Label fx:id="pagesLabel" layoutX="11.0" layoutY="371.0" prefHeight="25.0" prefWidth="123.0" text="Стр." textFill="WHITE" AnchorPane.bottomAnchor="204.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="371.0" />
-        <ComboBox fx:id="publisherField" layoutX="134.0" layoutY="221.0" prefWidth="150.0" AnchorPane.bottomAnchor="354.0" AnchorPane.topAnchor="221.0" />
-        <ComboBox fx:id="yearField" layoutX="135.0" layoutY="294.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="281.0" AnchorPane.topAnchor="294.0" />
-        <TextField fx:id="numberField" layoutX="134.0" layoutY="259.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="316.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="259.0" />
-        <TextField fx:id="pagesField" layoutX="134.0" layoutY="371.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="204.0" AnchorPane.topAnchor="371.0" />
-        <TextField fx:id="urlField" layoutX="134.0" layoutY="408.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="167.0" AnchorPane.topAnchor="408.0" />
-        <TextField fx:id="urlDateField" layoutX="134.0" layoutY="442.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="133.0" AnchorPane.topAnchor="442.0" />
-        <Label fx:id="urlLabel" layoutX="11.0" layoutY="408.0" prefHeight="25.0" prefWidth="123.0" text="URL" textFill="WHITE" AnchorPane.bottomAnchor="167.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="408.0" />
-        <Label fx:id="urlDateLabel" layoutX="11.0" layoutY="442.0" prefHeight="25.0" prefWidth="123.0" text="Дата обращения" textFill="WHITE" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="442.0" />
-        <CheckBox fx:id="isElectronicCheck" layoutX="331.0" layoutY="24.0" mnemonicParsing="false" onAction="#electronicCheck" text="Электронный ресурс" />
-        <ComboBox fx:id="serialTitleField" layoutX="135.0" layoutY="179.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="396.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="615.0" AnchorPane.topAnchor="179.0" />
-        <Label fx:id="serialTitleLabel" layoutX="11.0" layoutY="179.0" prefHeight="25.0" prefWidth="123.0" text="Название журнала" textFill="WHITE" AnchorPane.bottomAnchor="396.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="179.0" />
-        <TextField fx:id="cityField" layoutX="135.0" layoutY="334.0" prefHeight="25.0" prefWidth="149.0" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="334.0" />
-        <Label fx:id="cityLabel" layoutX="11.0" layoutY="334.0" prefHeight="25.0" prefWidth="123.0" text="Город" textFill="WHITE" AnchorPane.bottomAnchor="241.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="334.0" />
-        <TextField fx:id="addDataField" layoutX="134.0" layoutY="139.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.bottomAnchor="436.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="616.0" AnchorPane.topAnchor="139.0" />
-        <Label fx:id="addDataLabel" layoutX="11.0" layoutY="139.0" prefHeight="25.0" prefWidth="123.0" text="Доп. сведения" textFill="WHITE" AnchorPane.bottomAnchor="436.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="766.0" AnchorPane.topAnchor="139.0" />
-        <TextField fx:id="numberFieldJournal" layoutX="134.0" layoutY="258.0" prefHeight="26.0" prefWidth="150.0" />
-      <Label fx:id="contentPagesLabel" layoutX="11.0" layoutY="476.0" prefHeight="25.0" prefWidth="123.0" text="Страницы материала" textFill="WHITE" />
-      <CheckBox fx:id="fromSiteCheck" layoutX="494.0" layoutY="24.0" mnemonicParsing="false" onAction="#electronicCheck" text="Статья с сайта" visible="false" />
-      <TextField fx:id="dissSpecField" layoutX="300.0" layoutY="258.0" prefHeight="26.0" prefWidth="150.0" />
-      <TextField fx:id="contentPagesField" layoutX="134.0" layoutY="476.0" prefHeight="25.0" prefWidth="150.0" />
-    </children>
-</AnchorPane>
+<fx:root fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="797.0" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
+   <children>
+      <HBox fx:id="typeBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="125.0" text="Тип публикации" />
+            <ComboBox fx:id="resourceTypeField" prefHeight="30.0" prefWidth="150.0" />
+            <CheckBox fx:id="isElectronicCheck" mnemonicParsing="false" text="Электронный ресурс">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+               </HBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="fromSiteCheck" mnemonicParsing="false" text="Статья с сайта">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="authorBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="authorLabel" prefHeight="30.0" prefWidth="85.0" text="Автор" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <ComboBox fx:id="authorField1" prefHeight="30.0" prefWidth="150.0" />
+            <ComboBox fx:id="authorField2" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="authorField3" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="authorField4" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="titleBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="titleLabel" prefHeight="30.0" prefWidth="85.0" text="Название" />
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="En">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Button>
+            <TextField fx:id="titleField1" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="titleField2" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="addDataBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="addDataLabel" prefHeight="30.0" prefWidth="125.0" text="Доп. сведения" />
+            <TextField fx:id="addDataField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="serialTitleBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="serialTitleLabel" prefHeight="30.0" prefWidth="125.0" text="Название журнала" />
+            <ComboBox fx:id="serialTitleField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="publisherBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="publisherLabel" prefHeight="30.0" prefWidth="125.0" text="Издательство" />
+            <ComboBox fx:id="publisherField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="numberBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="editionLabel" prefHeight="30.0" prefWidth="125.0" text="Издание" />
+            <TextField fx:id="numberField" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="numberFieldJournal" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="dissSpecField" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="cityBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="cityLabel" prefHeight="30.0" prefWidth="125.0" text="Город" />
+            <TextField fx:id="cityField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="yearBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="yearLabel" prefHeight="30.0" prefWidth="125.0" text="Год" />
+            <ComboBox fx:id="yearField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="pagesBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="pagesLabel" prefHeight="30.0" prefWidth="125.0" text="Страниц" />
+            <TextField fx:id="pagesField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="urlBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="urlLabel" prefHeight="30.0" prefWidth="125.0" text="URL" />
+            <TextField fx:id="urlField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="accessDateBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="urlDateLabel" prefHeight="30.0" prefWidth="125.0" text="Дата обращения" />
+            <TextField fx:id="urlDateField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox fx:id="contentBox" prefHeight="30.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="contentPagesLabel" prefHeight="30.0" prefWidth="125.0" text="Нужные страницы" />
+            <TextField fx:id="contentPagesField" prefHeight="30.0" prefWidth="150.0" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</fx:root>
