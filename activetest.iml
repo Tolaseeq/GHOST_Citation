@@ -14,6 +14,7 @@
     <orderEntry type="library" name="activejdbc-3.0-j11" level="application" />
     <orderEntry type="library" name="activejdbc-instrumentation-3.0-j11" level="application" />
     <orderEntry type="library" name="activejdbc-kt-3.0-j11" level="application" />
+    <orderEntry type="library" name="controlsfx-8.40.14" level="project" />
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.36.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17.0.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17.0.0.1" level="project" />
@@ -43,6 +44,5 @@
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-core:5.7" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-jdbc:5.7" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
-    <orderEntry type="library" name="controlsfx-8.40.14" level="project" />
   </component>
 </module>

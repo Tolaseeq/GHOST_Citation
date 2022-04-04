@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="797.0" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
+<VBox fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
    <children>
       <HBox fx:id="typeBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label prefHeight="30.0" prefWidth="125.0" text="Тип публикации" />
-            <ComboBox fx:id="resourceTypeField" prefHeight="30.0" prefWidth="150.0" />
-            <CheckBox fx:id="isElectronicCheck" mnemonicParsing="false" text="Электронный ресурс">
+            <ComboBox fx:id="resourceTypeField" onAction="#typeChange" prefHeight="30.0" prefWidth="150.0" />
+            <CheckBox fx:id="isElectronicCheck" mnemonicParsing="false" onAction="#electronicCheck" text="Электронный ресурс">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
                </HBox.margin>
@@ -25,6 +25,11 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </CheckBox>
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Submit">
+               <HBox.margin>
+                  <Insets left="180.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets />
@@ -36,7 +41,7 @@
       <HBox fx:id="authorBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="authorLabel" prefHeight="30.0" prefWidth="85.0" text="Автор" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="+">
+            <Button fx:id="addAuthorButton" mnemonicParsing="false" onAction="#addAuthorButtonClick" prefHeight="30.0" prefWidth="30.0" text="+">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
@@ -68,7 +73,7 @@
       <HBox fx:id="titleBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="titleLabel" prefHeight="30.0" prefWidth="85.0" text="Название" />
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="En">
+            <Button fx:id="addTitleButton" mnemonicParsing="false" onAction="#addTitleButtonClick" prefHeight="30.0" prefWidth="30.0" text="En">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
@@ -129,7 +134,7 @@
             <TextField fx:id="numberField" prefHeight="30.0" prefWidth="150.0" />
             <TextField fx:id="numberFieldJournal" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </HBox.margin>
             </TextField>
             <TextField fx:id="dissSpecField" prefHeight="30.0" prefWidth="150.0">
@@ -218,4 +223,4 @@
          </VBox.margin>
       </HBox>
    </children>
-</fx:root>
+</VBox>

@@ -8,8 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ru.mai.activetest.Models.*;
@@ -28,6 +30,45 @@ public class AddRecordController {
     private MainWindowController parentController;
     ConnectionSource connectionSource;
     int publicationTypeIndex = 1;
+
+    @FXML
+    private HBox typeBox;
+
+    @FXML
+    private HBox authorBox;
+
+    @FXML
+    private HBox titleBox;
+
+    @FXML
+    private HBox addDataBox;
+
+    @FXML
+    private HBox serialTitleBox;
+
+    @FXML
+    private HBox publisherBox;
+
+    @FXML
+    private HBox numberBox;
+
+    @FXML
+    private HBox cityBox;
+
+    @FXML
+    private HBox yearBox;
+
+    @FXML
+    private HBox pagesBox;
+
+    @FXML
+    private HBox urlBox;
+
+    @FXML
+    private HBox accessDateBox;
+
+    @FXML
+    private HBox contentBox;
 
     @FXML
     private Label serialTitleLabel;
@@ -142,6 +183,17 @@ public class AddRecordController {
 
     @FXML
     void initialize() throws SQLException {
+        for (Object box : titleAuthorPane.getChildren().toArray()) {
+            ((HBox) box).managedProperty().bind(((HBox) box).visibleProperty());
+            for (Object field : ((HBox) box).getChildren().toArray()) {
+                if (field.getClass() == ComboBox.class && field != resourceTypeField) {
+                    ((ComboBox) field).managedProperty().bind(((ComboBox) field).visibleProperty());
+                }
+                if (field.getClass() == TextField.class) {
+                    ((TextField) field).managedProperty().bind(((TextField) field).visibleProperty());
+                }
+            }
+        }
         dbConnect();
         ObservableList<String> typeList = FXCollections.observableArrayList();
         for (PublicationType type : publicationTypeDao) {
@@ -179,13 +231,14 @@ public class AddRecordController {
 
         ObservableList<String> serialTitles = FXCollections.observableArrayList();
         for (Record record : recordDao) {
-            serialTitles.add(record.serial_note);
+            if (record.serial_note != null)
+                serialTitles.add(record.serial_note);
         }
         serialTitleField.setItems(serialTitles);
         new AutoCompleteComboBoxListener<>(serialTitleField);
     }
     @FXML
-    void submitButtonClick(ActionEvent event) throws SQLException, IOException {
+    void submitButtonClick(ActionEvent event)   throws SQLException, IOException {
         Record record = new Record();
         record.publicationType = publicationTypeDao.queryForId(publicationTypeIndex);
         record.title_add_data = addDataField.getText();
@@ -345,62 +398,80 @@ public class AddRecordController {
 
     public void typeChange(ActionEvent actionEvent)
     {
-        for (Object field : titleAuthorPane.getChildren().toArray()) {
-            if (field.getClass() == ComboBox.class && field != resourceTypeField)
-            {
-                ((ComboBox) field).setValue(null);
-                ((ComboBox) field).managedProperty().bind(((ComboBox) field).visibleProperty());
-            }
-            if (field.getClass() == TextField.class)
-            {
-                ((TextField) field).setText(null);
-                ((TextField) field).managedProperty().bind(((TextField) field).visibleProperty());
-            }
-            if (field.getClass() == Label.class)
-            {
-                ((Label) field).managedProperty().bind(((Label) field).visibleProperty());
+        for (Object box : titleAuthorPane.getChildren().toArray()) {
+            for (Object field : ((HBox) box).getChildren().toArray()) {
+                if (field.getClass() == ComboBox.class && field != resourceTypeField) {
+                    ((ComboBox) field).setValue(null);
+                }
+                if (field.getClass() == TextField.class) {
+                    ((TextField) field).setText(null);
+                }
             }
         }
         switch (resourceTypeField.getValue()) {
             case  ("Книга"):
                 fromSiteCheck.setVisible (false);
-                addAuthorButton.setVisible(true);
-                addTitleButton.setVisible(true);
-                authorField1.setVisible(true);
-                authorField2.setVisible(false);
-                authorField3.setVisible(false);
-                authorField4.setVisible(false);
-                authorLabel.setVisible(true);
-                editionLabel.setText("Издание");
-                editionLabel.setVisible(true);
                 isElectronicCheck.setVisible(true);
                 submitButton.setVisible(true);
-                numberField.setVisible(true);
-                numberFieldJournal.setVisible(false);
-                pagesField.setVisible(true);
-                pagesLabel.setVisible(true);
-                publisherField.setVisible(true);
-                publisherLabel.setVisible(true);
-                publisherLabel.setText("Издательство");
-                serialTitleField.setVisible(false);
-                serialTitleLabel.setVisible(false);
-                titleField1.setVisible(true);
-                titleField2.setVisible(false);
-                titleLabel.setVisible(true);
-                urlDateField.setVisible(false);
-                urlDateLabel.setVisible(false);
-                urlField.setVisible(false);
-                urlLabel.setVisible(false);
-                yearField.setVisible(true);
-                yearLabel.setVisible(true);
-                cityLabel.setVisible(true);
-                cityField.setVisible(true);
+
+                authorBox.setVisible (true);
+                addAuthorButton.setVisible(true);
+                authorLabel.setVisible (true);
+                authorField1.setVisible (true);
+                authorField2.setVisible (false);
+                authorField3.setVisible (false);
+                authorField4.setVisible (false);
+
+                titleBox.setVisible (true);
+                titleLabel.setVisible (true);
+                titleField1.setVisible (true);
+                titleField2.setVisible (false);
+
+                addDataBox.setVisible (true);
+                addDataLabel.setVisible (true);
                 addDataLabel.setText("Доп. сведения");
-                addDataField.setVisible(true);
-                addDataLabel.setVisible(true);
-                contentPagesField.setVisible(false);
-                contentPagesLabel.setVisible(false);
-                dissSpecField.setVisible(false);
+                addDataField.setVisible (true);
+
+                serialTitleBox.setVisible (false);
+                serialTitleLabel.setVisible (false);
+                serialTitleField.setVisible (false);
+
+                publisherBox.setVisible (true);
+                publisherLabel.setVisible (true);
+                publisherLabel.setText("Издательство");
+                publisherField.setVisible (true);
+
+                numberBox.setVisible (true);
+                editionLabel.setVisible (true);
+                editionLabel.setText("Издание");
+                numberField.setVisible (true);
+                numberFieldJournal.setVisible (false);
+                dissSpecField.setVisible (false);
+
+                cityBox.setVisible (false);
+                cityLabel.setVisible (false);
+                cityField.setVisible (false);
+
+                yearBox.setVisible (false);
+                yearLabel.setVisible (false);
+                yearField.setVisible (false);
+
+                pagesBox.setVisible (true);
+                pagesLabel.setVisible (true);
+                pagesField.setVisible (true);
+
+                urlBox.setVisible (false);
+                urlLabel.setVisible (false);
+                urlField.setVisible (false);
+
+                accessDateBox.setVisible (false);
+                urlDateLabel.setVisible (false);
+                urlDateField.setVisible (false);
+
+                contentBox.setVisible (false);
+                contentPagesLabel.setVisible (false);
+                contentPagesField.setVisible (false);
+
                 if (isElectronicCheck.isSelected())
                 {
                     isElectronicCheck.setSelected(false);
@@ -410,42 +481,66 @@ public class AddRecordController {
 
             case ("Статья"):
                 fromSiteCheck.setVisible (true);
-                addAuthorButton.setVisible(true);
-                addTitleButton.setVisible(true);
-                authorField1.setVisible(true);
-                authorField2.setVisible(false);
-                authorField3.setVisible(false);
-                authorField4.setVisible(false);
-                authorLabel.setVisible(true);
-                editionLabel.setText("Номер");
-                editionLabel.setVisible(true);
                 isElectronicCheck.setVisible(true);
                 submitButton.setVisible(true);
-                numberField.setVisible(false);
-                numberFieldJournal.setVisible(true);
-                pagesField.setVisible(true);
-                pagesLabel.setVisible(true);
-                publisherField.setVisible(false);
-                publisherLabel.setVisible(false);
-                serialTitleField.setVisible(true);
-                serialTitleLabel.setVisible(true);
-                titleField1.setVisible(true);
-                titleField2.setVisible(false);
-                titleLabel.setVisible(true);
-                urlDateField.setVisible(false);
-                urlDateLabel.setVisible(false);
-                urlField.setVisible(false);
-                urlLabel.setVisible(false);
-                yearField.setVisible(true);
-                yearLabel.setVisible(true);
-                cityLabel.setVisible(true);
-                cityField.setVisible(true);
+
+                authorBox.setVisible (true);
+                addAuthorButton.setVisible(true);
+                authorLabel.setVisible (true);
+                authorField1.setVisible (true);
+                authorField2.setVisible (false);
+                authorField3.setVisible (false);
+                authorField4.setVisible (false);
+
+                titleBox.setVisible (true);
+                titleLabel.setVisible (true);
+                titleField1.setVisible (true);
+                titleField2.setVisible (false);
+
+                addDataBox.setVisible (true);
+                addDataLabel.setVisible (true);
                 addDataLabel.setText("Доп. сведения");
-                addDataField.setVisible(true);
-                addDataLabel.setVisible(true);
-                contentPagesField.setVisible(false);
-                contentPagesLabel.setVisible(false);
-                dissSpecField.setVisible(false);
+                addDataField.setVisible (true);
+
+                serialTitleBox.setVisible (true);
+                serialTitleLabel.setVisible (true);
+                serialTitleField.setVisible (true);
+
+                publisherBox.setVisible (false);
+                publisherLabel.setVisible (false);
+                publisherField.setVisible (false);
+
+                numberBox.setVisible (true);
+                editionLabel.setVisible (true);
+                editionLabel.setText("Номер");
+                numberField.setVisible (false);
+                numberFieldJournal.setVisible (true);
+                dissSpecField.setVisible (false);
+
+                cityBox.setVisible (true);
+                cityLabel.setVisible (true);
+                cityField.setVisible (true);
+
+                yearBox.setVisible (true);
+                yearLabel.setVisible (true);
+                yearField.setVisible (true);
+
+                pagesBox.setVisible (true);
+                pagesLabel.setVisible (true);
+                pagesField.setVisible (true);
+
+                urlBox.setVisible (false);
+                urlLabel.setVisible (false);
+                urlField.setVisible (false);
+
+                accessDateBox.setVisible (false);
+                urlDateLabel.setVisible (false);
+                urlDateField.setVisible (false);
+
+                contentBox.setVisible (false);
+                contentPagesLabel.setVisible (false);
+                contentPagesField.setVisible (false);
+
                 if (isElectronicCheck.isSelected())
                 {
                     isElectronicCheck.setSelected(false);
@@ -454,88 +549,134 @@ public class AddRecordController {
                 break;
 
             case ("URL"):
-                isElectronicCheck.setSelected(true);
-                isElectronicCheck.setVisible(false);
                 fromSiteCheck.setVisible (false);
-                addAuthorButton.setVisible(false);
-                addTitleButton.setVisible(false);
-                authorField1.setVisible(false);
-                authorField2.setVisible(false);
-                authorField3.setVisible(false);
-                authorField4.setVisible(false);
-                authorLabel.setVisible(false);
-                editionLabel.setVisible(false);
+                isElectronicCheck.setVisible(false);
+                isElectronicCheck.setSelected(true);
                 submitButton.setVisible(true);
-                numberField.setVisible(false);
-                numberFieldJournal.setVisible(false);
-                pagesField.setVisible(false);
-                pagesLabel.setVisible(false);
-                publisherField.setVisible(false);
-                publisherLabel.setVisible(false);
-                serialTitleField.setVisible(false);
-                serialTitleLabel.setVisible(false);
-                titleField1.setVisible(true);
-                titleField2.setVisible(false);
-                titleLabel.setVisible(true);
-                urlDateField.setVisible(true);
-                urlDateLabel.setVisible(true);
-                urlField.setVisible(true);
-                urlLabel.setVisible(true);
-                yearField.setVisible(false);
-                yearLabel.setVisible(false);
-                cityLabel.setVisible(false);
-                cityField.setVisible(false);
-                addDataField.setVisible(false);
-                addDataLabel.setVisible(false);
-                contentPagesField.setVisible(false);
-                contentPagesLabel.setVisible(false);
-                dissSpecField.setVisible(false);
+
+                authorBox.setVisible (false);
+                authorLabel.setVisible (false);
+                authorField1.setVisible (false);
+                authorField2.setVisible (false);
+                authorField3.setVisible (false);
+                authorField4.setVisible (false);
+
+                titleBox.setVisible (true);
+                titleLabel.setVisible (true);
+                titleField1.setVisible (true);
+                titleField2.setVisible (false);
+
+                addDataBox.setVisible (false);
+                addDataLabel.setVisible (false);
+                addDataField.setVisible (false);
+
+                serialTitleBox.setVisible (false);
+                serialTitleLabel.setVisible (false);
+                serialTitleField.setVisible (false);
+
+                publisherBox.setVisible (false);
+                publisherLabel.setVisible (false);
+                publisherField.setVisible (false);
+
+                numberBox.setVisible (false);
+                editionLabel.setVisible (false);
+                numberField.setVisible (false);
+                numberFieldJournal.setVisible (false);
+                dissSpecField.setVisible (false);
+
+                cityBox.setVisible (false);
+                cityLabel.setVisible (false);
+                cityField.setVisible (false);
+
+                yearBox.setVisible (false);
+                yearLabel.setVisible (false);
+                yearField.setVisible (false);
+
+                pagesBox.setVisible (false);
+                pagesLabel.setVisible (false);
+                pagesField.setVisible (false);
+
+                urlBox.setVisible (true);
+                urlLabel.setVisible (true);
+                urlField.setVisible (true);
+
+                accessDateBox.setVisible (true);
+                urlDateLabel.setVisible (true);
+                urlDateField.setVisible (true);
+
+                contentBox.setVisible (false);
+                contentPagesLabel.setVisible (false);
+                contentPagesField.setVisible (false);
+
                 publicationTypeIndex = 3;
                 break;
 
             case ("Автореферат/диссертация"):
-                isElectronicCheck.setSelected(false);
-                isElectronicCheck.setVisible(false);
                 fromSiteCheck.setVisible (false);
-                addAuthorButton.setVisible(false);
-                addTitleButton.setVisible(false);
-                authorField1.setVisible(true);
-                authorField2.setVisible(false);
-                authorField3.setVisible(false);
-                authorField4.setVisible(false);
-                authorLabel.setVisible(true);
-                editionLabel.setVisible(true);
-                editionLabel.setText("Специальность");
+                isElectronicCheck.setVisible(false);
                 submitButton.setVisible(true);
-                numberField.setVisible(true);
-                numberFieldJournal.setVisible(false);
-                pagesField.setVisible(true);
-                pagesLabel.setVisible(true);
-                publisherField.setVisible(true);
-                publisherLabel.setVisible(true);
-                publisherLabel.setText("ВУЗ");
-                serialTitleField.setVisible(false);
-                serialTitleLabel.setVisible(false);
-                titleField1.setVisible(true);
-                titleField2.setVisible(false);
-                titleLabel.setVisible(true);
-                urlDateField.setVisible(false);
-                urlDateLabel.setVisible(false);
-                urlField.setVisible(false);
-                urlLabel.setVisible(false);
-                yearField.setVisible(true);
-                yearLabel.setVisible(true);
-                cityLabel.setVisible(true);
-                cityField.setVisible(true);
+
+                authorBox.setVisible (true);
+                addAuthorButton.setVisible(false);
+                authorLabel.setVisible (true);
+                authorField1.setVisible (true);
+                authorField2.setVisible (false);
+                authorField3.setVisible (false);
+                authorField4.setVisible (false);
+
+                titleBox.setVisible (true);
+                titleLabel.setVisible (true);
+                titleField1.setVisible (true);
+                titleField2.setVisible (false);
+
+                addDataBox.setVisible (true);
+                addDataLabel.setVisible (true);
                 addDataLabel.setText("На соискание");
-                addDataField.setVisible(true);
-                addDataLabel.setVisible(true);
-                contentPagesField.setVisible(true);
-                contentPagesLabel.setVisible(true);
-                dissSpecField.setVisible(true);
+                addDataField.setVisible (true);
+
+                serialTitleBox.setVisible (false);
+                serialTitleLabel.setVisible (false);
+                serialTitleField.setVisible (false);
+
+                publisherBox.setVisible (true);
+                publisherLabel.setVisible (true);
+                publisherLabel.setText("ВУЗ");
+                publisherField.setVisible (true);
+
+                numberBox.setVisible (true);
+                editionLabel.setVisible (true);
+                editionLabel.setText("Специальность");
+                numberField.setVisible (false);
+                numberFieldJournal.setVisible (true);
+                dissSpecField.setVisible (true);
+
+                cityBox.setVisible (true);
+                cityLabel.setVisible (true);
+                cityField.setVisible (true);
+
+                yearBox.setVisible (true);
+                yearLabel.setVisible (true);
+                yearField.setVisible (true);
+
+                pagesBox.setVisible (true);
+                pagesLabel.setVisible (true);
+                pagesField.setVisible (true);
+
+                urlBox.setVisible (false);
+                urlLabel.setVisible (false);
+                urlField.setVisible (false);
+
+                accessDateBox.setVisible (false);
+                urlDateLabel.setVisible (false);
+                urlDateField.setVisible (false);
+
+                contentBox.setVisible (true);
+                contentPagesLabel.setVisible (true);
+                contentPagesField.setVisible (true);
+
                 publicationTypeIndex = 4;
                 break;
         }
-
+        Integer c = 0;
     }
 }
