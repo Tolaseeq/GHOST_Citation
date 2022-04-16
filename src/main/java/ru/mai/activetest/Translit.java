@@ -7,6 +7,7 @@ public class Translit {
     private static final Map<String, String> letters = new HashMap<String, String>();
 
     static {
+        letters.put(" ", " ");
         letters.put("А", "A");
         letters.put("Б", "B");
         letters.put("В", "V");
@@ -87,9 +88,6 @@ public class Translit {
         StringBuilder sb = new StringBuilder(text.length());
         for (int i = 0; i < text.length(); i++) {
             String l = text.substring(i, i + 1);
-            if (l.isBlank()) {
-                continue;
-            }
 
             if (letters.containsKey(l)) {
                 sb.append(letters.get(l));

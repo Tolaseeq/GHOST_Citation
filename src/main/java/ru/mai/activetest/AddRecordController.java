@@ -243,9 +243,9 @@ public class AddRecordController {
         record.publicationType = publicationTypeDao.queryForId(publicationTypeIndex);
         record.title_add_data = addDataField.getText();
         record.edition = numberField.getText();
-        if (Objects.equals(publisherField.getValue(), "Статья"))
+        if (numberFieldJournal.isVisible())
             record.edition_add_data = numberFieldJournal.getText();
-        else
+        if (dissSpecField.isVisible())
             record.edition_add_data = dissSpecField.getText();
         record.content_page = contentPagesField.getText();
         record.publication_place = cityField.getText();
@@ -360,6 +360,12 @@ public class AddRecordController {
     public void addTitleButtonClick(ActionEvent actionEvent)
     {
         titleField2.setVisible(true);
+        cityBox.setVisible (true);
+        cityLabel.setVisible (true);
+        cityField.setVisible (true);
+        yearBox.setVisible (true);
+        yearLabel.setVisible (true);
+        yearField.setVisible (true);
     }
 
     public void addAuthorButtonClick(ActionEvent actionEvent)
@@ -566,9 +572,9 @@ public class AddRecordController {
                 titleField1.setVisible (true);
                 titleField2.setVisible (false);
 
-                addDataBox.setVisible (false);
-                addDataLabel.setVisible (false);
-                addDataField.setVisible (false);
+                addDataBox.setVisible (true);
+                addDataLabel.setVisible (true);
+                addDataField.setVisible (true);
 
                 serialTitleBox.setVisible (false);
                 serialTitleLabel.setVisible (false);
