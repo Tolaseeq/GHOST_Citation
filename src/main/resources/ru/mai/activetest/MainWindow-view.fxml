@@ -12,17 +12,18 @@
    <children>
       <TableView fx:id="mainTable" layoutX="183.0" layoutY="157.0" onMouseClicked="#clickItem" prefHeight="443.0" prefWidth="717.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
         <columns>
-          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="243.0" text="Title" />
-          <TableColumn fx:id="authorColumn" prefWidth="235.0" text="Author" />
-            <TableColumn fx:id="editionColumn" minWidth="0.0" prefWidth="159.0" text="Edition" />
-            <TableColumn fx:id="yearColumn" prefWidth="79.0" text="Year" />
+            <TableColumn fx:id="checkColumn" minWidth="0.0" prefWidth="22.0" />
+          <TableColumn fx:id="titleColumn" minWidth="0.0" prefWidth="368.0" text="Название" />
+          <TableColumn fx:id="authorColumn" prefWidth="247.0" text="Автор" />
+            <TableColumn fx:id="yearColumn" prefWidth="79.0" text="Год" />
         </columns>
       </TableView>
-      <Button fx:id="addButton" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="25.0" prefWidth="95.0" text="Add new" />
+      <Button fx:id="addButton" layoutX="35.0" layoutY="157.0" mnemonicParsing="false" onAction="#addButtonClick" prefHeight="25.0" prefWidth="95.0" text="Добавить..." />
       <TextField fx:id="searchField" layoutX="664.0" layoutY="85.0" />
-      <Button fx:id="searchButton" layoutX="819.0" layoutY="85.0" mnemonicParsing="false" onAction="#searchButtonClick" prefHeight="25.0" prefWidth="67.0" text="Search..." />
+      <Button fx:id="searchButton" layoutX="819.0" layoutY="85.0" mnemonicParsing="false" onAction="#searchButtonClick" prefHeight="25.0" prefWidth="67.0" text="Поиск..." />
       <Label fx:id="searchErrorLabel" layoutX="664.0" layoutY="48.0" prefHeight="25.0" prefWidth="149.0" />
-      <Button fx:id="deleteButton" layoutX="35.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="95.0" text="Delete" />
+      <Button fx:id="deleteButton" layoutX="35.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="95.0" text="Удалить" />
       <Text fx:id="test_text" layoutX="293.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="223.13671875" />
+      <Button fx:id="exportButton" layoutX="35.0" layoutY="529.0" mnemonicParsing="false" onAction="#exportButtonClick" prefHeight="25.0" prefWidth="95.0" text="Экспорт" />
    </children>
 </AnchorPane>

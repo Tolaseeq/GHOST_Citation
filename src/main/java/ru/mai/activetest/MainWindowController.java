@@ -3,6 +3,7 @@ package ru.mai.activetest;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -10,7 +11,9 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,13 +28,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import ru.mai.activetest.Models.*;
 
 public class MainWindowController implements Initializable {
 
     public Label searchErrorLabel;
     public Text test_text;
+    public Button exportButton;
     Dao<Record, Integer> recordDao;
     Dao<Title, Integer> titleDao;
     Dao<Author, Integer> authorDao;
@@ -59,7 +63,7 @@ public class MainWindowController implements Initializable {
     private TableColumn<Record, String> authorColumn;
 
     @FXML
-    private TableColumn<Record, String> editionColumn;
+    private TableColumn<Record, CheckBox> checkColumn;
 
     @FXML
     private TableColumn<Record, String> yearColumn;
@@ -73,6 +77,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextField searchField;
 
+    ArrayList <Record> exportList = new ArrayList<>();
+
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -85,9 +91,19 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        checkColumn.setCellValueFactory(arg0 -> {
+            CheckBox checkBox = new CheckBox();
+            checkBox.selectedProperty().setValue(false);
+            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+                    if (!checkBox.isSelected())
+                        exportList.remove(arg0.getValue());
+                    else
+                        exportList.add(arg0.getValue());
+            });
+            return new SimpleObjectProperty<>(checkBox);
+        });
         titleColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("mainTitle"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("authorsString"));
-        editionColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("edition"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("publication_date"));
     }
 
@@ -105,6 +121,19 @@ public class MainWindowController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    public void exportButtonClick(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (exportList.isEmpty()) {
+            alert.setTitle("Внимание!");
+            alert.setHeaderText("Ошибка экспорта:");
+            alert.setContentText("Ничего не выбрано! Выберите ресурсы для экспорта.");
+            alert.showAndWait();
+            return;
+        }
+        Stage stage = newWindow("SingleExport-view.fxml", "Export");
     }
 
     @FXML
@@ -207,7 +236,7 @@ public class MainWindowController implements Initializable {
         }
         else {
             SingleExportController singleExportController = loader.getController();
-            singleExportController.setRecordIndex(mainTable.getSelectionModel().getSelectedItem());
+            singleExportController.setRecordsIndex(exportList);
         }
         return stage;
     }

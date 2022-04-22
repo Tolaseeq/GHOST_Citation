@@ -32,6 +32,15 @@ public class AddRecordController {
     int publicationTypeIndex = 1;
 
     @FXML
+    private Button deleteAuthorButton;
+
+    @FXML
+    private Label engTitleLabel;
+
+    @FXML
+    private Button deleteTitleButton;
+
+    @FXML
     private HBox typeBox;
 
     @FXML
@@ -181,6 +190,8 @@ public class AddRecordController {
     @FXML
     private ComboBox<String> yearField;
 
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+
     @FXML
     void initialize() throws SQLException {
         for (Object box : titleAuthorPane.getChildren().toArray()) {
@@ -223,7 +234,7 @@ public class AddRecordController {
         new AutoCompleteComboBoxListener<>(publisherField);
 
         ObservableList<String> years = FXCollections.observableArrayList();
-        for (int y = 1600; y<2022; y++) {
+        for (int y = 2000; y<2022; y++) {
             years.add(String.valueOf(y));
         }
         yearField.setItems(years);
@@ -236,9 +247,186 @@ public class AddRecordController {
         }
         serialTitleField.setItems(serialTitles);
         new AutoCompleteComboBoxListener<>(serialTitleField);
+        typeChange();
     }
+
+    Boolean inCheck ()
+    {
+        alert.setTitle("Ошибка ввода!");
+
+        if (authorField4.isVisible())
+        {
+            if (authorField4.getValue()!=null && !authorField4.getValue().isEmpty()) {
+                if (!authorField4.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]+\\s?[a-zA-Zа-яА-Я]*") && !authorField4.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]\\.\\s?[a-zA-Zа-яА-Я]?\\.?")) {
+                    alert.setHeaderText("Некорректные данные первого автора!");
+                    alert.setContentText("Допустимый формат (без кавычек): \\\"Фамилия Имя Отчество\\\" или \\\"Фамилия И. О.\\\"");
+                    alert.showAndWait();
+                    return false;
+                }
+            }
+            else
+            {
+                alert.setHeaderText("Некорректные данные первого автора!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (authorField3.isVisible())
+        {
+            if (authorField3.getValue()!=null && !authorField3.getValue().isEmpty()) {
+                if (!authorField3.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]+\\s?[a-zA-Zа-яА-Я]*") && !authorField3.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]\\.\\s?[a-zA-Zа-яА-Я]?\\.?")) {
+                    alert.setHeaderText("Некорректные данные первого автора!");
+                    alert.setContentText("Допустимый формат (без кавычек): \\\"Фамилия Имя Отчество\\\" или \\\"Фамилия И. О.\\\"");
+                    alert.showAndWait();
+                    return false;
+                }
+            }
+            else
+            {
+                alert.setHeaderText("Некорректные данные первого автора!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (authorField2.isVisible())
+        {
+            if (authorField2.getValue()!=null && !authorField2.getValue().isEmpty()) {
+                if (!authorField2.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]+\\s?[a-zA-Zа-яА-Я]*") && !authorField2.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]\\.\\s?[a-zA-Zа-яА-Я]?\\.?")) {
+                    alert.setHeaderText("Некорректные данные первого автора!");
+                    alert.setContentText("Допустимый формат (без кавычек): \\\"Фамилия Имя Отчество\\\" или \\\"Фамилия И. О.\\\"");
+                    alert.showAndWait();
+                    return false;
+                }
+            }
+            else
+            {
+                alert.setHeaderText("Некорректные данные первого автора!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (authorField1.isVisible())
+        {
+            if (authorField1.getValue()!=null && !authorField1.getValue().isEmpty()) {
+                if (!authorField1.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]+\\s?[a-zA-Zа-яА-Я]*") && !authorField1.getValue().matches("[a-zA-Zа-яА-Я]+\\s[a-zA-Zа-яА-Я]\\.\\s?[a-zA-Zа-яА-Я]?\\.?")) {
+                    alert.setHeaderText("Некорректные данные первого автора!");
+                    alert.setContentText("Допустимый формат (без кавычек): \\\"Фамилия Имя Отчество\\\" или \\\"Фамилия И. О.\\\"");
+                    alert.showAndWait();
+                    return false;
+                }
+            }
+            else
+            {
+                alert.setHeaderText("Некорректные данные первого автора!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if ((addDataField.getText() == null || addDataField.getText().isEmpty()) && Objects.equals(resourceTypeField.getValue(), "Автореферат/диссертация"))
+        {
+            alert.setHeaderText("Некорректные данные поля \\\"На соискание\\\"!");
+            alert.setContentText("Поле не может быть пустым!");
+            alert.showAndWait();
+            return false;
+        }
+
+        if ((serialTitleField.getValue() == null || serialTitleField.getValue().isEmpty()) && Objects.equals(resourceTypeField.getValue(), "Статья"))
+        {
+            alert.setHeaderText("Некорректное название сборника/журнала!");
+            alert.setContentText("Поле не может быть пустым!");
+            alert.showAndWait();
+            return false;
+        }
+
+        if (Objects.equals(resourceTypeField.getValue(), "Статья"))
+        {
+            if (numberFieldJournal.getText() == null || numberFieldJournal.getText().isEmpty())
+            {
+                alert.setHeaderText("Некорректный номер журнала!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+            else if (!numberFieldJournal.getText().matches("\\d+"))
+            {
+                alert.setHeaderText("Некорректный номер журнала!");
+                alert.setContentText("Введите только номер цифрами.");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (Objects.equals(resourceTypeField.getValue(), "Автореферат/диссертация"))
+        {
+            if (publisherField.getValue() == null || publisherField.getValue().isEmpty())
+            {
+                alert.setHeaderText("Некорректный ввод ВУЗа!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+
+            if (numberFieldJournal.getText() == null || numberFieldJournal.getText().isEmpty())
+            {
+                alert.setHeaderText("Некорректный номер направления!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            } else if (!numberFieldJournal.getText().matches("\\d+\\.\\d+\\.\\d+"))
+            {
+                alert.setHeaderText("Некорректный номер направления!");
+                alert.setContentText("Допустимый формат: ччч.чччч.ччч");
+                alert.showAndWait();
+                return false;
+            }
+            if (dissSpecField.getText() == null || dissSpecField.getText().isEmpty())
+            {
+                alert.setHeaderText("Некорректное название специализации!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
+        if (Objects.equals(resourceTypeField.getValue(), "Автореферат/диссертация") || Objects.equals(resourceTypeField.getValue(), "Статья"))
+        {
+            if (yearField.getValue() == null || yearField.getValue().isEmpty())
+            {
+                alert.setHeaderText("Некорректный год публикации!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+            else if (!yearField.getValue().matches("\\d{4}"))
+            {
+                alert.setHeaderText("Некорректный номер направления!");
+                alert.setContentText("Допустимый формат: гггг");
+                alert.showAndWait();
+                return false;
+            }
+            if (cityField.getText() == null || cityField.getText().isEmpty())
+            {
+                alert.setHeaderText("Некорректный ввод места публикации!");
+                alert.setContentText("Поле не может быть пустым!");
+                alert.showAndWait();
+                return false;
+            }
+        }
+        return true;
+    }
+
     @FXML
     void submitButtonClick(ActionEvent event)   throws SQLException, IOException {
+        if (!inCheck())
+            return;
         Record record = new Record();
         record.publicationType = publicationTypeDao.queryForId(publicationTypeIndex);
         record.title_add_data = addDataField.getText();
@@ -247,6 +435,7 @@ public class AddRecordController {
             record.edition_add_data = numberFieldJournal.getText();
         if (dissSpecField.isVisible())
             record.edition_add_data = dissSpecField.getText();
+
         record.content_page = contentPagesField.getText();
         record.publication_place = cityField.getText();
         if (publisherField.getValue() == null)
@@ -359,17 +548,19 @@ public class AddRecordController {
 
     public void addTitleButtonClick(ActionEvent actionEvent)
     {
+        deleteTitleButton.setVisible(true);
         titleField2.setVisible(true);
-        cityBox.setVisible (true);
-        cityLabel.setVisible (true);
-        cityField.setVisible (true);
-        yearBox.setVisible (true);
-        yearLabel.setVisible (true);
-        yearField.setVisible (true);
+    }
+
+    public void deleteTitleClick(ActionEvent actionEvent) {
+        deleteTitleButton.setVisible(false);
+        titleField2.setVisible(false);
+        titleField2.setText(null);
     }
 
     public void addAuthorButtonClick(ActionEvent actionEvent)
     {
+        deleteAuthorButton.setVisible(true);
         if (authorField2.isVisible())
         {
             if (authorField3.isVisible())
@@ -384,6 +575,28 @@ public class AddRecordController {
         else
         {
             authorField2.setVisible(true);
+        }
+    }
+
+    public void deleteAuthorClick(ActionEvent actionEvent) {
+        if (authorField4.isVisible())
+        {
+            authorField4.setVisible(false);
+            authorField4.setValue(null);
+        }
+        else
+        {
+            if (authorField3.isVisible())
+            {
+                authorField3.setVisible(false);
+                authorField3.setValue(null);
+            }
+            else
+            {
+                authorField2.setVisible(false);
+                authorField2.setValue(null);
+                deleteAuthorButton.setVisible(false);
+            }
         }
     }
 
@@ -402,7 +615,7 @@ public class AddRecordController {
         urlDateLabel.setVisible(true);
     }
 
-    public void typeChange(ActionEvent actionEvent)
+    public void typeChange()
     {
         for (Object box : titleAuthorPane.getChildren().toArray()) {
             for (Object field : ((HBox) box).getChildren().toArray()) {

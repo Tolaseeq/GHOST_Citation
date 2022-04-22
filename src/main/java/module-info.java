@@ -13,6 +13,7 @@ module ru.mai.activetest {
     requires ormlite.core;
     requires ormlite.jdbc;
     requires lombok;
+    requires org.apache.poi.ooxml;
 
     opens ru.mai.activetest to javafx.fxml;
     exports ru.mai.activetest;

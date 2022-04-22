@@ -2,13 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="296.0" prefWidth="556.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.SingleExportController">
    <children>
       <TextArea fx:id="exportField" layoutX="28.0" layoutY="80.0" prefHeight="200.0" prefWidth="501.0" />
-      <ComboBox fx:id="formatBox" layoutX="26.0" layoutY="30.0" prefWidth="150.0" />
-      <Button fx:id="submitButton" layoutX="198.0" layoutY="30.0" mnemonicParsing="false" onAction="#okButtonClick" text="OK" />
+      <ComboBox fx:id="formatBox" layoutX="142.0" layoutY="14.0" prefWidth="150.0" />
+      <Button fx:id="submitButton" layoutX="312.0" layoutY="28.0" mnemonicParsing="false" onAction="#okButtonClick" text="OK" />
+      <ComboBox fx:id="exportTypeBox" layoutX="142.0" layoutY="42.0" onAction="#typeChange" prefWidth="150.0" />
+      <Label layoutX="35.0" layoutY="43.0" prefHeight="22.0" prefWidth="107.0" text="Формат экспорта" />
+      <Label layoutX="35.0" layoutY="14.0" prefHeight="22.0" prefWidth="107.0" text="Стиль" />
+      <HBox fx:id="wayBox" layoutX="28.0" layoutY="80.0" prefHeight="22.0" prefWidth="501.0" visible="false">
+         <children>
+            <Label fx:id="wayLabel" prefHeight="22.0" prefWidth="107.0" text="Путь к файлу Word:" />
+            <TextField fx:id="wayField" prefHeight="22.0" prefWidth="385.0" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

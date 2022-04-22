@@ -6,10 +6,11 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
+<VBox fx:id="titleAuthorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" style="-fx-background-color: #217f94;" minWidth="-Infinity" prefHeight="481.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.AddRecordController">
    <children>
       <HBox fx:id="typeBox" prefHeight="30.0" prefWidth="600.0">
          <children>
@@ -25,7 +26,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </CheckBox>
-            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Submit">
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Ок">
                <HBox.margin>
                   <Insets left="180.0" />
                </HBox.margin>
@@ -46,22 +47,39 @@
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <ComboBox fx:id="authorField1" prefHeight="30.0" prefWidth="150.0" />
+            <ComboBox fx:id="authorField1" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+               </tooltip></ComboBox>
             <ComboBox fx:id="authorField2" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+               </tooltip>
             </ComboBox>
             <ComboBox fx:id="authorField3" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+               </tooltip>
             </ComboBox>
             <ComboBox fx:id="authorField4" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+               </tooltip>
             </ComboBox>
+            <Button fx:id="deleteAuthorButton" mnemonicParsing="false" onAction="#deleteAuthorClick" prefHeight="30.0" prefWidth="30.0" text="X" visible="false">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets />
@@ -78,12 +96,21 @@
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <TextField fx:id="titleField1" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="titleField1" prefHeight="30.0" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></TextField>
+            <Label fx:id="engTitleLabel" prefHeight="30.0" prefWidth="100.0" text="Англ. название" />
             <TextField fx:id="titleField2" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
             </TextField>
+            <Button fx:id="deleteTitleButton" mnemonicParsing="false" onAction="#deleteTitleClick" prefHeight="30.0" prefWidth="30.0" text="X" visible="false">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets />
@@ -95,7 +122,10 @@
       <HBox fx:id="addDataBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="addDataLabel" prefHeight="30.0" prefWidth="125.0" text="Доп. сведения" />
-            <TextField fx:id="addDataField" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="addDataField" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Дополнительные сведения, относящиеся к названию. Для диссертации - пример: диссертация на соискание учёной степени доктора психологических наук." />
+               </tooltip></TextField>
          </children>
          <opaqueInsets>
             <Insets />
@@ -107,7 +137,10 @@
       <HBox fx:id="serialTitleBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="serialTitleLabel" prefHeight="30.0" prefWidth="125.0" text="Название журнала" />
-            <ComboBox fx:id="serialTitleField" prefHeight="30.0" prefWidth="150.0" />
+            <ComboBox fx:id="serialTitleField" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Название журнала либо другого сборника, в котором содержится цитируемый ресурс." />
+               </tooltip></ComboBox>
          </children>
          <opaqueInsets>
             <Insets />
@@ -119,7 +152,10 @@
       <HBox fx:id="publisherBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="publisherLabel" prefHeight="30.0" prefWidth="125.0" text="Издательство" />
-            <ComboBox fx:id="publisherField" prefHeight="30.0" prefWidth="150.0" />
+            <ComboBox fx:id="publisherField" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Название издательской организации" />
+               </tooltip></ComboBox>
          </children>
          <opaqueInsets>
             <Insets />
@@ -131,16 +167,25 @@
       <HBox fx:id="numberBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="editionLabel" prefHeight="30.0" prefWidth="125.0" text="Издание" />
-            <TextField fx:id="numberField" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="numberField" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Номер издания" />
+               </tooltip></TextField>
             <TextField fx:id="numberFieldJournal" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Номер экземпляра сериального издания/номер направления обучения автора диссертации в формате 00.00.00" />
+               </tooltip>
             </TextField>
             <TextField fx:id="dissSpecField" prefHeight="30.0" prefWidth="150.0">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Специальность автора диссертации/автореферата" />
+               </tooltip>
             </TextField>
          </children>
          <opaqueInsets>
@@ -213,7 +258,10 @@
       <HBox fx:id="contentBox" prefHeight="30.0" prefWidth="600.0">
          <children>
             <Label fx:id="contentPagesLabel" prefHeight="30.0" prefWidth="125.0" text="Нужные страницы" />
-            <TextField fx:id="contentPagesField" prefHeight="30.0" prefWidth="150.0" />
+            <TextField fx:id="contentPagesField" prefHeight="30.0" prefWidth="150.0">
+               <tooltip>
+                  <Tooltip text="Диапазон страниц в формате 0-100" />
+               </tooltip></TextField>
          </children>
          <opaqueInsets>
             <Insets />
