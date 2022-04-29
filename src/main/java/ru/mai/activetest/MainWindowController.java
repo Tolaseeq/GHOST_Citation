@@ -44,6 +44,8 @@ public class MainWindowController implements Initializable {
     ObservableList<Record> records = FXCollections.observableArrayList();
     ConnectionSource connectionSource;
 
+    Record choice;
+
     @FXML
     private ResourceBundle resources;
 
@@ -112,10 +114,13 @@ public class MainWindowController implements Initializable {
         mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //System.out.println("Clicked on " + (mainTable.getSelectionModel().getSelectedCells().get(0)).getRow());
-                //System.out.println("Clicked on " + (mainTable.getSelectionModel().getSelectedItem().record_id));
+                for (Record record: recordDao)
+                {
+                    if (record.record_id == mainTable.getSelectionModel().getSelectedItem().record_id)
+                        choice = record;
+                }
                 try {
-                    Stage stage = newWindow("SingleExport-view.fxml", "Export");
+                    Stage stage = newWindow("AddRecord-view.fxml", "Редактирование");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -133,12 +138,12 @@ public class MainWindowController implements Initializable {
             alert.showAndWait();
             return;
         }
-        Stage stage = newWindow("SingleExport-view.fxml", "Export");
+        Stage stage = newWindow("SingleExport-view.fxml", "Экспорт");
     }
 
     @FXML
     private void addButtonClick(ActionEvent actionEvent) throws IOException {
-        Stage stage = newWindow("AddRecord-view.fxml", "Add a new record");
+        Stage stage = newWindow("AddRecord-view.fxml", "Добавить новый ресурс");
         //stage.onCloseRequestProperty().set((WindowEvent event) -> fillTable());
         //Controller controller = stage.get
     }
@@ -230,13 +235,18 @@ public class MainWindowController implements Initializable {
         stage.setTitle(windowTitle);
         stage.setScene(new Scene(root1));
         stage.show();
-        if (Objects.equals(windowTitle, "Add a new record")) {
+        if (Objects.equals(windowTitle, "Добавить новый ресурс")) {
             AddRecordController addRecordController = loader.getController();
             addRecordController.setParentController(this);
         }
-        else {
+        if (Objects.equals(windowTitle, "Экспорт")) {
             SingleExportController singleExportController = loader.getController();
             singleExportController.setRecordsIndex(exportList);
+        }
+        if (Objects.equals(windowTitle, "Редактирование")) {
+            AddRecordController addRecordController = loader.getController();
+            addRecordController.setParentController(this);
+            addRecordController.fillFields(choice);
         }
         return stage;
     }

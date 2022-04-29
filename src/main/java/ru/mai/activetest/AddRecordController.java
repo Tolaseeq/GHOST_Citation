@@ -18,6 +18,7 @@ import ru.mai.activetest.Models.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddRecordController {
@@ -546,19 +547,21 @@ public class AddRecordController {
         this.parentController = controller;
     }
 
-    public void addTitleButtonClick(ActionEvent actionEvent)
+    public void addTitleButtonClick()
     {
         deleteTitleButton.setVisible(true);
+        engTitleLabel.setVisible(true);
         titleField2.setVisible(true);
     }
 
     public void deleteTitleClick(ActionEvent actionEvent) {
         deleteTitleButton.setVisible(false);
+        engTitleLabel.setVisible(false);
         titleField2.setVisible(false);
         titleField2.setText(null);
     }
 
-    public void addAuthorButtonClick(ActionEvent actionEvent)
+    public void addAuthorButtonClick()
     {
         deleteAuthorButton.setVisible(true);
         if (authorField2.isVisible())
@@ -603,16 +606,20 @@ public class AddRecordController {
     public void electronicCheck(ActionEvent actionEvent) {
         if (!isElectronicCheck.isSelected())
         {
-            urlField.setVisible(false);
-            urlLabel.setVisible(false);
-            urlDateField.setVisible(false);
-            urlDateLabel.setVisible(false);
+            urlBox.setVisible (false);
+            urlLabel.setVisible (false);
+            urlField.setVisible (false);
+            accessDateBox.setVisible (false);
+            urlDateLabel.setVisible (false);
+            urlDateField.setVisible (false);
             return;
         }
-        urlField.setVisible(true);
-        urlLabel.setVisible(true);
-        urlDateField.setVisible(true);
-        urlDateLabel.setVisible(true);
+        urlBox.setVisible (true);
+        urlLabel.setVisible (true);
+        urlField.setVisible (true);
+        accessDateBox.setVisible (true);
+        urlDateLabel.setVisible (true);
+        urlDateField.setVisible (true);
     }
 
     public void typeChange()
@@ -667,13 +674,13 @@ public class AddRecordController {
                 numberFieldJournal.setVisible (false);
                 dissSpecField.setVisible (false);
 
-                cityBox.setVisible (false);
-                cityLabel.setVisible (false);
-                cityField.setVisible (false);
+                cityBox.setVisible (true);
+                cityLabel.setVisible (true);
+                cityField.setVisible (true);
 
-                yearBox.setVisible (false);
-                yearLabel.setVisible (false);
-                yearField.setVisible (false);
+                yearBox.setVisible (true);
+                yearLabel.setVisible (true);
+                yearField.setVisible (true);
 
                 pagesBox.setVisible (true);
                 pagesLabel.setVisible (true);
@@ -897,5 +904,59 @@ public class AddRecordController {
                 break;
         }
         Integer c = 0;
+    }
+
+    public void fillFields(Record record) {
+        resourceTypeField.setValue(record.getPublicationType().getPublication_type());
+        if (!record.getAuthorRecords().isEmpty())
+        {
+            authorField1.setValue(record.getAuthorRecords().toArray(new AuthorRecord[0])[0].getAuthor().getAuthor());
+            if (record.getAuthorRecords().size()>1)
+            {
+                addAuthorButtonClick();
+                authorField2.setValue(record.getAuthorRecords().toArray(new AuthorRecord[0])[1].getAuthor().getAuthor());
+                if (record.getAuthorRecords().size()>2)
+                {
+                    addAuthorButtonClick();
+                    authorField3.setValue(record.getAuthorRecords().toArray(new AuthorRecord[0])[2].getAuthor().getAuthor());
+                    if (record.getAuthorRecords().size()>3)
+                    {
+                        addAuthorButtonClick();
+                        authorField4.setValue(record.getAuthorRecords().toArray(new AuthorRecord[0])[3].getAuthor().getAuthor());
+                    }
+                }
+            }
+        }
+        titleField1.setText(record.getTitles().toArray(new Title[0])[0].getTitle());
+        if (record.getTitles().size()>1)
+        {
+            titleField2.setText(record.getTitles().toArray(new Title[0])[1].getTitle());
+            addTitleButtonClick();
+        }
+        addDataField.setText(record.getTitle_add_data());
+        if (record.publisher_name == "[б. и.]")
+            publisherField.setValue("");
+        else
+            publisherField.setValue(record.getPublisher_name());
+        yearField.setValue(record.getPublication_date());
+        cityField.setText(record.getPublication_place());
+        pagesField.setText(record.getSize());
+        contentPagesField.setText(record.getContent_page());
+        dissSpecField.setText(record.getEdition_add_data());
+        numberFieldJournal.setText(record.getEdition_add_data());
+        if (record.getUrl() != null) {
+            if (!record.getUrl().isEmpty()) {
+                isElectronicCheck.setSelected(true);
+                urlBox.setVisible(true);
+                urlLabel.setVisible(true);
+                urlField.setVisible(true);
+                accessDateBox.setVisible(true);
+                urlDateLabel.setVisible(true);
+                urlDateField.setVisible(true);
+            }
+        }
+        urlField.setText(record.getUrl());
+        urlDateField.setText(record.getUrl_date());
+        serialTitleField.setValue(record.getSerial_note());
     }
 }
