@@ -155,6 +155,13 @@ public class Formatter {
                 alert.showAndWait();
                 return "";
             }
+            if (record.getTitles().size() < 2) {
+                alert.setTitle("Внимание!");
+                alert.setHeaderText("Ошибка формата!");
+                alert.setContentText("Отсутствует англоязычное название!");
+                alert.showAndWait();
+                return "";
+            }
         }
         switch (record.getPublicationType().getPublication_type()) {
             case "Книга":
@@ -216,6 +223,13 @@ public class Formatter {
 
     public String harvardFormatter(Record record) {
         String result = null;
+        if (record.getTitles().size() < 2) {
+            alert.setTitle("Внимание!");
+            alert.setHeaderText("Ошибка формата!");
+            alert.setContentText("Отсутствует англоязычное название!");
+            alert.showAndWait();
+            return "";
+        }
         switch (record.getPublicationType().getPublication_type()) {
             case "Книга":
                 switch (record.getAuthorRecords().size())

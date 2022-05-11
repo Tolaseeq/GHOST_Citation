@@ -22,33 +22,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException, SQLException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("MainWindow-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("Reference Builder");
+        stage.setTitle("BibDesk");
         stage.setScene(scene);
         stage.show();
-        /*ConnectionSource connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
-        Dao<Record, Integer> recordDao =
-                DaoManager.createDao(connectionSource, Record.class);
-        Record record = new Record();
-        record.title_record = "Преступление и наказание";
-        record.title_add_data = "Роман";
-        record.author_record = "Ф.М. Достоевский";
-        record.edition = "5-е изд.";
-        record.edition_add_data = "исправленное и дополненное";
-        record.publication_place = "Петроград";
-        record.publisher_name = "Империя";
-        record.publication_date = "1902";
-        record.size = "365 с.";
-        record.url
-        record.url_date
-        record.note
-        record.identificator = "ISBN 111 111 111";
-        record.key_title;
-        record.content_type;
-        record.access_mean;
-        record.content_page;
-        record.serial_note;
-        recordDao.create(record);
-        connectionSource.close();*/
     }
 
     public static void main(String[] args) { launch(); }

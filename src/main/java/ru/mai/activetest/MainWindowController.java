@@ -25,6 +25,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,6 +47,9 @@ public class MainWindowController implements Initializable {
     ConnectionSource connectionSource;
 
     Record choice;
+
+    @FXML
+    private ImageView imageView;
 
     @FXML
     private ResourceBundle resources;
@@ -93,6 +98,7 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        imageView.setImage(new Image ("file:4888526.jpg"));
         checkColumn.setCellValueFactory(arg0 -> {
             CheckBox checkBox = new CheckBox();
             checkBox.selectedProperty().setValue(false);

@@ -26,7 +26,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </CheckBox>
-                <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Ок">
+                <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Сохранить">
                     <HBox.margin>
                         <Insets left="180.0" />
                     </HBox.margin>
