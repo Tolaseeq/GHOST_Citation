@@ -1,6 +1,7 @@
 package ru.mai.activetest;
 
 import com.j256.ormlite.dao.CloseableIterator;
+import com.j256.ormlite.support.ConnectionSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ru.mai.activetest.Models.Author;
 import ru.mai.activetest.Models.AuthorRecord;
 import ru.mai.activetest.Models.Record;
@@ -40,7 +42,6 @@ public class SingleExportController {
     Alert alert = new Alert(Alert.AlertType.ERROR);
 
     protected void setRecordsIndex (ArrayList<Record> _exportList) {exportList=_exportList;}
-
     @FXML
     public void initialize() {
         ObservableList<String> formatList = FXCollections.observableArrayList();
@@ -75,7 +76,7 @@ public class SingleExportController {
         }
     }
 
-    public void okButtonClick(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
+    public void okButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
         bibList = "";
         exportField.clear();
         Formatter formatter = new Formatter();

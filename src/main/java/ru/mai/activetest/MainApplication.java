@@ -10,7 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.mai.activetest.Models.Record;
+import ru.mai.activetest.Models.*;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,8 +18,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MainApplication extends Application {
+    static ConnectionSource connectionSource;
+    static Dao<Record, Integer> recordDao;
+    static Dao<Title, Integer> titleDao;
+    static Dao<Author, Integer> authorDao;
+    static Dao<AuthorRecord, Integer> authorRecordDao;
+    static Dao<PublicationType, Integer> publicationTypeDao;
     @Override
     public void start(Stage stage) throws IOException, SQLException {
+        connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
+        recordDao = DaoManager.createDao(connectionSource, Record.class);
+        titleDao = DaoManager.createDao(connectionSource, Title.class);
+        authorDao = DaoManager.createDao(connectionSource, Author.class);
+        authorRecordDao = DaoManager.createDao(connectionSource, AuthorRecord.class);
+        publicationTypeDao = DaoManager.createDao(connectionSource, PublicationType.class);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("MainWindow-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setTitle("BibDesk");

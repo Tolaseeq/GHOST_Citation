@@ -92,7 +92,7 @@ public class Formatter {
                         result = result + " // " + record.getSerial_note();
                         result = result + ". - " + record.getPublication_date();
                         result = result + ". - №" + record.getEdition_add_data();
-                        result = result + ". - " + record.getSize() + " с.";
+                        result = result + ". - с. " + record.getSize();
                         break;
                     case 4:
                         result = result + " " + record.getTitles().iterator().next().title;
@@ -130,9 +130,10 @@ public class Formatter {
                         + "/ " + record.getAuthorRecords().iterator().next().getAuthor().getAuthor()
                         + "; " + record.getPublisher_name()
                         + ".- " + record.getPublication_place() + ", " + record.getPublication_date()
-                        + ".- " + record.getSize()  + " с."
-                        + ".- Библиогр.: " + "с. " + record.getContent_page()
-                        + ".- Текст: непосредственный";
+                        + ".- " + record.getSize()  + " с.";
+                if (record.getContent_page() != null)
+                    result = result + ".- Библиогр.: " + "с. " + record.getContent_page();
+                result = result + ".- Текст: непосредственный";
                 break;
         }
         while (result.contains("..")) {
@@ -209,7 +210,9 @@ public class Formatter {
                 }
                 result = result + ". \"" + record.getTitles().toArray(new Title[0])[1].getTitle() + ".\"";
                 result = result + " Dissertation, " + toTranslit(record.getPublisher_name()) + ", " + toTranslit(record.getPublication_place()) + ", " + record.getPublication_date();
-                result = result + ", " + record.getContent_page() + ".";
+                if (record.getContent_page() != null)
+                    result = result + ", " + record.getContent_page();
+                result = result  + ".";
                 break;
         }
         while (result.contains("..")) {

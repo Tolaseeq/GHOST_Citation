@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import ru.mai.activetest.Models.*;
@@ -84,7 +85,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private TextField searchField;
 
-    ArrayList <Record> exportList = new ArrayList<>();
+    ArrayList<Record> exportList = new ArrayList<>();
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,15 +99,15 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        imageView.setImage(new Image ("file:4888526.jpg"));
+        imageView.setImage(new Image("file:4888526.jpg"));
         checkColumn.setCellValueFactory(arg0 -> {
             CheckBox checkBox = new CheckBox();
             checkBox.selectedProperty().setValue(false);
             checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-                    if (!checkBox.isSelected())
-                        exportList.remove(arg0.getValue());
-                    else
-                        exportList.add(arg0.getValue());
+                if (!checkBox.isSelected())
+                    exportList.remove(arg0.getValue());
+                else
+                    exportList.add(arg0.getValue());
             });
             return new SimpleObjectProperty<>(checkBox);
         });
@@ -120,15 +121,16 @@ public class MainWindowController implements Initializable {
         mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                for (Record record: recordDao)
-                {
-                    if (record.record_id == mainTable.getSelectionModel().getSelectedItem().record_id)
-                        choice = record;
-                }
-                try {
-                    Stage stage = newWindow("AddRecord-view.fxml", "Редактирование");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (mainTable.getSelectionModel().getSelectedItem() != null) {
+                    for (Record record : recordDao) {
+                        if (record.record_id == mainTable.getSelectionModel().getSelectedItem().record_id)
+                            choice = record;
+                    }
+                    try {
+                        Stage stage = newWindow("AddRecord-view.fxml", "Редактирование");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -202,45 +204,43 @@ public class MainWindowController implements Initializable {
     }
 
     protected void fillTable() throws IOException {
+        exportList.clear();
         records.clear();
         for (Record record : recordDao) {
-            record.setMainTitle(record.getTitles().iterator().next().title);
-            Boolean firstRun = true;
-            for (AuthorRecord authorRecord : record.getAuthorRecords()) {
-                if (firstRun) {
-                    record.setAuthorsString(authorRecord.author.author);
-                    firstRun = false;
-                } else {
-                    record.setAuthorsString(record.getAuthorsString() + "; " + authorRecord.author.author);
+            //try {
+                record.setMainTitle(record.getTitles().iterator().next().title);
+                Boolean firstRun = true;
+                for (AuthorRecord authorRecord : record.getAuthorRecords()) {
+                    if (firstRun) {
+                        record.setAuthorsString(authorRecord.author.author);
+                        firstRun = false;
+                    } else {
+                        record.setAuthorsString(record.getAuthorsString() + "; " + authorRecord.author.author);
+                    }
                 }
-            }
-            records.add(record);
+                records.add(record);
+            //}
+            //catch (IllegalStateException e)
+            //{
+
+            //}
         }
         mainTable.setItems(records);
         connectionSource.close();
     }
 
     private void dbConnect() throws SQLException {
-        connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
-        recordDao = DaoManager.createDao(connectionSource, Record.class);
-        titleDao = DaoManager.createDao(connectionSource, Title.class);
-        authorDao = DaoManager.createDao(connectionSource, Author.class);
-        authorRecordDao = DaoManager.createDao(connectionSource, AuthorRecord.class);
-        publicationTypeDao = DaoManager.createDao(connectionSource, PublicationType.class);
-        //TableUtils.createTable(connectionSource, Record.class);
-        //TableUtils.createTable(connectionSource, Title.class);
-        //TableUtils.createTable(connectionSource, Author.class);
-        //TableUtils.createTable(connectionSource, AuthorRecord.class);
-        //TableUtils.createTable(connectionSource, PublicationType.class);
+        connectionSource = MainApplication.connectionSource;
+        recordDao = MainApplication.recordDao;
+        titleDao = MainApplication.titleDao;
+        authorDao = MainApplication.authorDao;
+        authorRecordDao = MainApplication.authorRecordDao;
+        publicationTypeDao = MainApplication.publicationTypeDao;
     }
 
     private Stage newWindow(String fxml, String windowTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent root1 = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle(windowTitle);
-        stage.setScene(new Scene(root1));
-        stage.show();
         if (Objects.equals(windowTitle, "Добавить новый ресурс")) {
             AddRecordController addRecordController = loader.getController();
             addRecordController.setParentController(this);
@@ -254,21 +254,24 @@ public class MainWindowController implements Initializable {
             addRecordController.setParentController(this);
             addRecordController.fillFields(choice);
         }
+        Stage stage = new Stage();
+        stage.setTitle(windowTitle);
+        stage.setScene(new Scene(root1));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
         return stage;
     }
 
     public void deleteButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
-        for (Record record : recordDao) {
-            if (mainTable.getSelectionModel().getSelectedItem().getRecord_id() == record.getRecord_id()) {
-                titleDao.delete(record.getTitles());
-                for (AuthorRecord authorRecord : record.authorRecords) {
-                    if (authorRecordDao.queryForEq("author_id", authorRecord.author).size() == 1) {
-                        authorDao.delete(authorRecord.author);
-                    }
+        for (Record record : exportList) {
+            titleDao.delete(record.getTitles());
+            for (AuthorRecord authorRecord : record.authorRecords) {
+                if (authorRecordDao.queryForEq("author_id", authorRecord.author).size() == 1) {
+                    authorDao.delete(authorRecord.author);
                 }
-                authorRecordDao.delete(record.getAuthorRecords());
-                recordDao.delete(record);
             }
+            authorRecordDao.delete(record.getAuthorRecords());
+            recordDao.delete(record);
         }
         fillTable();
     }

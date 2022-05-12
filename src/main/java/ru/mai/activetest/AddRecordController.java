@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import ru.mai.activetest.Models.*;
 
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class AddRecordController {
     private MainWindowController parentController;
     ConnectionSource connectionSource;
     int publicationTypeIndex = 1;
+
+    Record oldRecord = null;
 
     @FXML
     private Button deleteAuthorButton;
@@ -428,12 +431,17 @@ public class AddRecordController {
     void submitButtonClick(ActionEvent event)   throws SQLException, IOException {
         if (!inCheck())
             return;
+        if (oldRecord != null)
+            deleteOldResource(oldRecord);
         Record record = new Record();
         record.publicationType = publicationTypeDao.queryForId(publicationTypeIndex);
         record.title_add_data = addDataField.getText();
         record.edition = numberField.getText();
         if (numberFieldJournal.isVisible())
-            record.edition_add_data = numberFieldJournal.getText();
+            if (Objects.equals(record.publicationType.publication_type, "Автореферат/диссертация"))
+                record.edition = numberFieldJournal.getText();
+            else
+                record.edition_add_data = numberFieldJournal.getText();
         if (dissSpecField.isVisible())
             record.edition_add_data = dissSpecField.getText();
 
@@ -488,7 +496,7 @@ public class AddRecordController {
         titleDao.create(title);
         if (titleField2.isVisible() && !titleField2.getText().isEmpty())
         {
-            title.title = titleField1.getText();
+            title.title = titleField2.getText();
             title.record = record;
             titleDao.create(title);
         }
@@ -530,16 +538,12 @@ public class AddRecordController {
     }
 
     private void dbConnect() throws SQLException {
-        connectionSource = new JdbcConnectionSource("jdbc:sqlite:identifier.sqlite");
-        recordDao = DaoManager.createDao(connectionSource, Record.class);
-        titleDao = DaoManager.createDao(connectionSource, Title.class);
-        authorDao = DaoManager.createDao(connectionSource, Author.class);
-        authorRecordDao = DaoManager.createDao(connectionSource, AuthorRecord.class);
-        publicationTypeDao = DaoManager.createDao(connectionSource, PublicationType.class);
-        //TableUtils.createTable(connectionSource, Record.class);
-        //TableUtils.createTable(connectionSource, Title.class);
-        //TableUtils.createTable(connectionSource, Author.class);
-        //TableUtils.createTable(connectionSource, AuthorRecord.class);
+        connectionSource = MainApplication.connectionSource;
+        recordDao = MainApplication.recordDao;
+        titleDao = MainApplication.titleDao;
+        authorDao = MainApplication.authorDao;
+        authorRecordDao = MainApplication.authorRecordDao;
+        publicationTypeDao = MainApplication.publicationTypeDao;
     }
 
     protected void setParentController(MainWindowController controller)
@@ -908,6 +912,7 @@ public class AddRecordController {
 
     public void fillFields(Record record) {
         resourceTypeField.setValue(record.getPublicationType().getPublication_type());
+        typeChange();
         if (!record.getAuthorRecords().isEmpty())
         {
             authorField1.setValue(record.getAuthorRecords().toArray(new AuthorRecord[0])[0].getAuthor().getAuthor());
@@ -944,6 +949,8 @@ public class AddRecordController {
         contentPagesField.setText(record.getContent_page());
         dissSpecField.setText(record.getEdition_add_data());
         numberFieldJournal.setText(record.getEdition_add_data());
+        if (Objects.equals(record.getPublicationType().getPublication_type(), "Автореферат/диссертация"))
+            numberFieldJournal.setText(record.getEdition());
         if (record.getUrl() != null) {
             if (!record.getUrl().isEmpty()) {
                 isElectronicCheck.setSelected(true);
@@ -958,5 +965,32 @@ public class AddRecordController {
         urlField.setText(record.getUrl());
         urlDateField.setText(record.getUrl_date());
         serialTitleField.setValue(record.getSerial_note());
+        oldRecord = record;
+    }
+
+    public void deleteOldResource(Record record) throws SQLException, IOException {
+            titleDao.delete(record.getTitles());
+            for (AuthorRecord authorRecord : record.authorRecords) {
+                if (authorRecordDao.queryForEq("author_id", authorRecord.author).size() == 1) {
+                    authorDao.delete(authorRecord.author);
+                }
+            }
+            authorRecordDao.delete(record.getAuthorRecords());
+            recordDao.delete(record);
+    }
+
+    private javafx.event.EventHandler<WindowEvent> closeEventHandler = new javafx.event.EventHandler<WindowEvent>() {
+        @Override
+        public void handle(WindowEvent event) {
+            try {
+                connectionSource.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    };
+
+    public javafx.event.EventHandler<WindowEvent> getCloseEventHandler(){
+        return closeEventHandler;
     }
 }
