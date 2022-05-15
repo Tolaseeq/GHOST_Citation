@@ -11,6 +11,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,6 +41,9 @@ public class MainWindowController implements Initializable {
     public Label searchErrorLabel;
     public Text test_text;
     public Button exportButton;
+    public AnchorPane anchorPane;
+    public Button flushButton;
+    public CheckBox selectAllCheck;
     Dao<Record, Integer> recordDao;
     Dao<Title, Integer> titleDao;
     Dao<Author, Integer> authorDao;
@@ -99,31 +104,39 @@ public class MainWindowController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        selectAllCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                for (Record record: mainTable.getItems())
+                {
+                    if(selectAllCheck.isSelected())
+                        record.isSelected.setSelected(true);
+                    else
+                        record.isSelected.setSelected(false);
+                }
+            }
+        });
         imageView.setImage(new Image("file:4888526.jpg"));
-        checkColumn.setCellValueFactory(arg0 -> {
-            CheckBox checkBox = new CheckBox();
-            checkBox.selectedProperty().setValue(false);
-            checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-                if (!checkBox.isSelected())
-                    exportList.remove(arg0.getValue());
+        checkColumn.setCellValueFactory(record -> {
+            record.getValue().isSelected = new CheckBox();
+            record.getValue().isSelected.selectedProperty().setValue(false);
+            record.getValue().isSelected.selectedProperty().addListener((ov, old_val, new_val) -> {
+                if (!record.getValue().isSelected.isSelected())
+                    exportList.remove(record.getValue());
                 else
-                    exportList.add(arg0.getValue());
+                    exportList.add(record.getValue());
             });
-            return new SimpleObjectProperty<>(checkBox);
+            return new SimpleObjectProperty<>(record.getValue().isSelected);
         });
         titleColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("mainTitle"));
         authorColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("authorsString"));
         yearColumn.setCellValueFactory(new PropertyValueFactory<Record, String>("publication_date"));
-    }
-
-    @FXML
-    public void clickItem(MouseEvent mouseEvent) throws IOException {
-        mainTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (mainTable.getSelectionModel().getSelectedItem() != null) {
+        mainTable.setRowFactory(tv -> {
+            TableRow<Record> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     for (Record record : recordDao) {
-                        if (record.record_id == mainTable.getSelectionModel().getSelectedItem().record_id)
+                        if (Objects.equals(record.record_id, row.getItem().record_id))
                             choice = record;
                     }
                     try {
@@ -132,7 +145,8 @@ public class MainWindowController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            }
+            });
+            return row;
         });
     }
 
@@ -208,17 +222,21 @@ public class MainWindowController implements Initializable {
         records.clear();
         for (Record record : recordDao) {
             //try {
+            if (record.getTitles().iterator().next().title != null && !record.getTitles().iterator().next().title.isEmpty())
                 record.setMainTitle(record.getTitles().iterator().next().title);
-                Boolean firstRun = true;
-                for (AuthorRecord authorRecord : record.getAuthorRecords()) {
-                    if (firstRun) {
-                        record.setAuthorsString(authorRecord.author.author);
-                        firstRun = false;
-                    } else {
-                        record.setAuthorsString(record.getAuthorsString() + "; " + authorRecord.author.author);
-                    }
+            else if (record.getTitles().toArray(new Title[0])[1].getTitle() != null && !record.getTitles().toArray(new Title[0])[1].getTitle().isEmpty()) {
+                record.setMainTitle(record.getTitles().toArray(new Title[0])[1].getTitle());
+            }
+            Boolean firstRun = true;
+            for (AuthorRecord authorRecord : record.getAuthorRecords()) {
+                if (firstRun) {
+                    record.setAuthorsString(authorRecord.author.author);
+                    firstRun = false;
+                } else {
+                    record.setAuthorsString(record.getAuthorsString() + "; " + authorRecord.author.author);
                 }
-                records.add(record);
+            }
+            records.add(record);
             //}
             //catch (IllegalStateException e)
             //{
@@ -274,5 +292,10 @@ public class MainWindowController implements Initializable {
             recordDao.delete(record);
         }
         fillTable();
+    }
+
+    public void flushButtonClick(ActionEvent actionEvent) throws IOException {
+        fillTable();
+        searchField.setText("");
     }
 }

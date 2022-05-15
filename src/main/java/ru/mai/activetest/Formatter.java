@@ -69,7 +69,7 @@ public class Formatter {
                             result = result + ": " + record.getTitle_add_data();
                         }
                         result = result + "/ " + formatAuthorName(false, record.getAuthorRecords().iterator().next().author.getAuthor());
-                        result = result + " .- Текст: " + record.getContent_type();
+                        //result = result + " .- Текст: " + record.getContent_type();
                         result = result + " // " + record.getSerial_note();
                         result = result + ". - " + record.getPublication_date();
                         result = result + ". - №" + record.getEdition_add_data();
@@ -88,7 +88,7 @@ public class Formatter {
                                 result = result + ", ";
                             result = result + formatAuthorName(false, record.getAuthorRecords().toArray(new AuthorRecord[0])[i].getAuthor().getAuthor());
                         }
-                        result = result + " .- Текст: " + record.getContent_type();
+                        //result = result + " .- Текст: " + record.getContent_type();
                         result = result + " // " + record.getSerial_note();
                         result = result + ". - " + record.getPublication_date();
                         result = result + ". - №" + record.getEdition_add_data();
@@ -105,7 +105,7 @@ public class Formatter {
                                 result = result + ", ";
                             result = result + formatAuthorName(false, record.getAuthorRecords().toArray(new AuthorRecord[0])[i].getAuthor().getAuthor());
                         }
-                        result = result + " .- Текст: " + record.getContent_type();
+                        //result = result + " .- Текст: " + record.getContent_type();
                         result = result + " // " + record.getSerial_note();
                         result = result + ". - " + record.getPublication_date();
                         result = result + ". - №" + record.getEdition_add_data();
@@ -133,7 +133,7 @@ public class Formatter {
                         + ".- " + record.getSize()  + " с.";
                 if (record.getContent_page() != null)
                     result = result + ".- Библиогр.: " + "с. " + record.getContent_page();
-                result = result + ".- Текст: непосредственный";
+                //result = result + ".- Текст: непосредственный";
                 break;
         }
         while (result.contains("..")) {

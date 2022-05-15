@@ -120,8 +120,10 @@ public class SingleExportController {
             }
             XWPFParagraph paragraph = document.createParagraph();
             XWPFRun run = paragraph.createRun();
-            run.setText(bibList);
-            run.addBreak();
+            for (String row: bibList.split("\n")) {
+                run.setText(row);
+                run.addBreak();
+            }
             try {
                 document.write(fileOutputStream);
                 fileOutputStream.close();
@@ -134,6 +136,11 @@ public class SingleExportController {
             }
             try {
                 fileOutputStream.close();
+                alert.setTitle("Экспорт выполнен!");
+                alert.setHeaderText("Успешно");
+                alert.setContentText("Нажмите ОК для продолжения");
+                alert.showAndWait();
+                return;
             } catch (IOException e) {
                 alert.setTitle("Внимание!");
                 alert.setHeaderText("Критическая ошибка!");

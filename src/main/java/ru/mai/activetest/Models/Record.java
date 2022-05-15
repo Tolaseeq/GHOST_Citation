@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import javafx.scene.control.CheckBox;
 import lombok.Data;
 
 @Data
@@ -16,6 +17,7 @@ public class Record {
     @ForeignCollectionField(eager = false)
     public ForeignCollection<Title> titles;
     String mainTitle;
+    public CheckBox isSelected;
     @DatabaseField
     public String title_add_data;
     @ForeignCollectionField(eager = false)
@@ -52,6 +54,6 @@ public class Record {
     @DatabaseField
     public String serial_note;
 
-    public Record(){};
+    public Record(){}
 }
  

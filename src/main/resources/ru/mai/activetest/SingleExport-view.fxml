@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="296.0" prefWidth="556.0" style="-fx-background-color: #217f94;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.mai.activetest.SingleExportController">
-   <children>
-      <TextArea fx:id="exportField" layoutX="28.0" layoutY="80.0" prefHeight="200.0" prefWidth="501.0" />
-      <ComboBox fx:id="formatBox" layoutX="142.0" layoutY="14.0" prefWidth="150.0" />
-      <Button fx:id="submitButton" layoutX="311.0" layoutY="27.0" mnemonicParsing="false" onAction="#okButtonClick" prefHeight="29.0" prefWidth="95.0" text="Экспортировать" />
-      <ComboBox fx:id="exportTypeBox" layoutX="142.0" layoutY="42.0" onAction="#typeChange" prefWidth="150.0" />
-      <Label layoutX="35.0" layoutY="43.0" prefHeight="22.0" prefWidth="107.0" text="Формат экспорта" textFill="WHITE" />
-      <Label layoutX="35.0" layoutY="14.0" prefHeight="22.0" prefWidth="107.0" text="Стиль" textFill="WHITE" />
-      <HBox fx:id="wayBox" layoutX="28.0" layoutY="80.0" prefHeight="22.0" prefWidth="501.0" visible="false">
-         <children>
-            <Label fx:id="wayLabel" prefHeight="22.0" prefWidth="107.0" text="Путь к файлу Word:" textFill="WHITE" />
-            <TextField fx:id="wayField" prefHeight="22.0" prefWidth="336.0">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin></TextField>
-            <Button fx:id="chooseFileButton" mnemonicParsing="false" onAction="#chooseFileButtonClick" text="Обзор..." />
-         </children>
-      </HBox>
-   </children>
+<AnchorPane prefHeight="296.0" prefWidth="556.0" style="-fx-background-color: #217f94;"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.mai.activetest.SingleExportController">
+   <TextArea fx:id="exportField" layoutX="28.0" layoutY="80.0" prefHeight="200.0" prefWidth="501.0"/>
+   <ComboBox fx:id="formatBox" layoutX="142.0" layoutY="14.0" prefWidth="150.0"/>
+   <Button fx:id="submitButton" layoutX="311.0" layoutY="27.0" mnemonicParsing="false" onAction="#okButtonClick"
+           prefHeight="29.0" prefWidth="107.0" text="Экспортировать"/>
+   <ComboBox fx:id="exportTypeBox" layoutX="142.0" layoutY="42.0" onAction="#typeChange" prefWidth="150.0"/>
+   <Label layoutX="35.0" layoutY="43.0" prefHeight="22.0" prefWidth="107.0" text="Формат экспорта" textFill="WHITE"/>
+   <Label layoutX="35.0" layoutY="14.0" prefHeight="22.0" prefWidth="107.0" text="Стиль" textFill="WHITE"/>
+   <HBox fx:id="wayBox" layoutX="28.0" layoutY="80.0" prefHeight="22.0" prefWidth="501.0" visible="false">
+      <Label fx:id="wayLabel" prefHeight="22.0" prefWidth="107.0" text="Путь к файлу Word:" textFill="WHITE"/>
+      <TextField fx:id="wayField" prefHeight="22.0" prefWidth="336.0">
+         <HBox.margin>
+            <Insets right="5.0"/>
+         </HBox.margin>
+      </TextField>
+      <Button fx:id="chooseFileButton" mnemonicParsing="false" onAction="#chooseFileButtonClick" text="Обзор..."/>
+   </HBox>
 </AnchorPane>

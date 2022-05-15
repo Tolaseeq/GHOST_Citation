@@ -16,19 +16,20 @@
             <children>
                 <Label prefHeight="30.0" prefWidth="125.0" text="Тип публикации" textFill="WHITE" />
                 <ComboBox fx:id="resourceTypeField" onAction="#typeChange" prefHeight="30.0" prefWidth="150.0" />
-                <CheckBox fx:id="isElectronicCheck" mnemonicParsing="false" onAction="#electronicCheck" text="Электронный ресурс" textFill="WHITE">
+                <CheckBox fx:id="isElectronicCheck" mnemonicParsing="false" onAction="#electronicCheck" prefHeight="16.0" prefWidth="160.0" text="Электронный ресурс" textFill="WHITE">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
                     </HBox.margin>
                 </CheckBox>
-                <CheckBox fx:id="fromSiteCheck" mnemonicParsing="false" text="Статья с сайта" textFill="WHITE">
+                <CheckBox fx:id="fromSiteCheck" mnemonicParsing="false" prefHeight="16.0" prefWidth="132.0" text="Статья с сайта" textFill="WHITE">
                     <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </CheckBox>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="27.0" prefWidth="75.0" text="Отмена" />
                 <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClick" prefHeight="27.0" prefWidth="75.0" text="Сохранить">
                     <HBox.margin>
-                        <Insets left="180.0" />
+                        <Insets left="20.0" />
                     </HBox.margin>
                 </Button>
             </children>
@@ -49,14 +50,14 @@
                 </Button>
                 <ComboBox fx:id="authorField1" prefHeight="30.0" prefWidth="150.0">
                     <tooltip>
-                        <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+                        <Tooltip text="Формат: Фамилия Имя Отчество / Фамилия И. О." />
                     </tooltip></ComboBox>
                 <ComboBox fx:id="authorField2" prefHeight="30.0" prefWidth="150.0">
                     <HBox.margin>
                         <Insets left="5.0" />
                     </HBox.margin>
                     <tooltip>
-                        <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+                        <Tooltip text="Формат: Фамилия Имя Отчество / Фамилия И. О." />
                     </tooltip>
                 </ComboBox>
                 <ComboBox fx:id="authorField3" prefHeight="30.0" prefWidth="150.0">
@@ -64,7 +65,7 @@
                         <Insets left="5.0" />
                     </HBox.margin>
                     <tooltip>
-                        <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+                        <Tooltip text="Формат: Фамилия Имя Отчество / Фамилия И. О." />
                     </tooltip>
                 </ComboBox>
                 <ComboBox fx:id="authorField4" prefHeight="30.0" prefWidth="150.0">
@@ -72,7 +73,7 @@
                         <Insets left="5.0" />
                     </HBox.margin>
                     <tooltip>
-                        <Tooltip text="Формат: Фамилия Имя Отвество / Фамилия И. О." />
+                        <Tooltip text="Формат: Фамилия Имя Отчество / Фамилия И. О." />
                     </tooltip>
                 </ComboBox>
                 <Button fx:id="deleteAuthorButton" mnemonicParsing="false" onAction="#deleteAuthorClick" prefHeight="30.0" prefWidth="30.0" text="X" visible="false">
