@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -39,6 +40,7 @@ public class SingleExportController {
     public Button chooseFileButton;
     private ArrayList<Record> exportList;
     private String bibList = "";
+    private File directory;
     Alert alert = new Alert(Alert.AlertType.ERROR);
 
     protected void setRecordsIndex (ArrayList<Record> _exportList) {exportList=_exportList;}
@@ -77,6 +79,22 @@ public class SingleExportController {
     }
 
     public void okButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
+        if (wayField.getText() == null || wayField.getText().equals(""))
+        {
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Путь к директории не может быть пустым!");
+            alert.setContentText("Выберите директорию экспорта!");
+            alert.showAndWait();
+            return;
+        }
+        if (new File(directory.getAbsolutePath() + "\\export.docx").exists())
+        {
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Файл уже существует!");
+            alert.setContentText("export.docx уже существует в указанной директории");
+            alert.showAndWait();
+            return;
+        }
         bibList = "";
         exportField.clear();
         Formatter formatter = new Formatter();
@@ -110,7 +128,7 @@ public class SingleExportController {
             XWPFDocument document = new XWPFDocument();
             FileOutputStream fileOutputStream = null;
             try {
-                fileOutputStream = new FileOutputStream(wayField.getText());
+                fileOutputStream = new FileOutputStream(wayField.getText() + "\\export.docx");
             } catch (IOException e) {
                 alert.setTitle("Внимание!");
                 alert.setHeaderText("Ошибка экспорта:");
@@ -137,8 +155,8 @@ public class SingleExportController {
             try {
                 fileOutputStream.close();
                 alert.setTitle("Экспорт выполнен!");
-                alert.setHeaderText("Успешно");
-                alert.setContentText("Нажмите ОК для продолжения");
+                alert.setHeaderText("Нажмите ОК для продолжения");
+                alert.setContentText("В указанной директории создан файл export.docx");
                 alert.showAndWait();
                 return;
             } catch (IOException e) {
@@ -152,9 +170,18 @@ public class SingleExportController {
     }
 
     public void chooseFileButtonClick(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Обзор");
-        File file = fileChooser.showOpenDialog(chooseFileButton.getScene().getWindow());
-        wayField.setText(file.getAbsolutePath());
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Обзор");
+        directory = directoryChooser.showDialog(chooseFileButton.getScene().getWindow());
+        if (new File(directory.getAbsolutePath() + "\\export.docx").exists())
+        {
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Файл уже существует!");
+            alert.setContentText("export.docx уже существует в указанной директории");
+            alert.showAndWait();
+            wayField.setText("");
+            return;
+        }
+        wayField.setText(directory.getAbsolutePath());
     }
 }
