@@ -79,7 +79,7 @@ public class SingleExportController {
     }
 
     public void okButtonClick(ActionEvent actionEvent) throws SQLException, IOException {
-        if (wayField.getText() == null || wayField.getText().equals(""))
+        if (exportTypeBox.getValue().equals("Файл Word") && ((wayField.getText() == null || wayField.getText().equals(""))))
         {
             alert.setTitle("Ошибка!");
             alert.setHeaderText("Путь к директории не может быть пустым!");
@@ -87,7 +87,7 @@ public class SingleExportController {
             alert.showAndWait();
             return;
         }
-        if (new File(directory.getAbsolutePath() + "\\export.docx").exists())
+        if (exportTypeBox.getValue().equals("Файл Word") && new File(directory.getAbsolutePath() + "\\export.docx").exists())
         {
             alert.setTitle("Ошибка!");
             alert.setHeaderText("Файл уже существует!");
