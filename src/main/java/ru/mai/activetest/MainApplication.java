@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.mai.activetest.Models.*;
+import ru.mai.activetest.Models.Record;
 
 import java.io.IOException;
 import java.sql.Connection;

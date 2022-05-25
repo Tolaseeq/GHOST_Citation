@@ -367,7 +367,7 @@ public class AddRecordController {
             return false;
         }
 
-        if (Objects.equals(resourceTypeField.getValue(), "Статья")) {
+        /*if (Objects.equals(resourceTypeField.getValue(), "Статья")) {
             if (numberFieldJournal.getText() == null || numberFieldJournal.getText().isEmpty()) {
                 alert.setHeaderText("Некорректный номер журнала!");
                 alert.setContentText("Поле не может быть пустым!");
@@ -379,7 +379,7 @@ public class AddRecordController {
                 alert.showAndWait();
                 return false;
             }
-        }
+        }*/
 
         if (Objects.equals(resourceTypeField.getValue(), "Автореферат/диссертация")) {
             if (publisherField.getValue() == null || publisherField.getValue().isEmpty()) {
